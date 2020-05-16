@@ -5,5 +5,6 @@
 </ion-header>
 
 <ion-content>
-
+  <input type="file" (change)="fileChanged($event)"/>
+  <img *ngIf="imageURL" src="https://ucarecdn.com/{{imageURL}}/"/>
 </ion-content>

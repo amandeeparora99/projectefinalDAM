@@ -19,8 +19,18 @@ const routes: Routes = [
       {
         path: 'profile',
         loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
+      },
+      {
+        path: '',
+        redirectTo: '/tabs/feed',
+        pathMatch: 'full'
       }
     ]
+  },
+  {
+    path: '',
+    redirectTo: '/tabs/feed',
+    pathMatch: 'full'
   }
 
 ];
