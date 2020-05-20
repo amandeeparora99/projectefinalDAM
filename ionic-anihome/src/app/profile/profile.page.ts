@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -12,9 +13,13 @@ export class ProfilePage implements OnInit {
   //User posts es el document amb tots els pjs que ha penjat un usuari
   userPosts
   
-  constructor(private afs: AngularFirestore, private user: UserService) { 
+  constructor(private afs: AngularFirestore, private user: UserService, private router: Router) { 
     const posts = afs.doc(`users/${this.user.getUID()}`)
     this.userPosts = posts.valueChanges()
+  }
+
+  goTo(postID: string) {
+    this.router.navigate(['/tabs/post/'+ postID])
   }
 
   ngOnInit() {

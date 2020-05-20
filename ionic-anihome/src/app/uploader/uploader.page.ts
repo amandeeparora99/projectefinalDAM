@@ -32,24 +32,7 @@ export class UploaderPage implements OnInit {
     const image = this.imageURL
     const characterName = this.characterName
 
-    // try {
-    //   this.afstore.doc(`users/${this.user.getUID()}`).update({
-    //     posts: firestore.FieldValue.arrayUnion({
-    //       image,
-    //       characterName
-    //     })
-    //   })
-    // } catch (error) {
-    //   console.log("Ha entrat aqui")
-    //   console.log('Error updating user', error)
-    //   this.afstore.doc(`users/${this.user.getUID()}`).set({
-    //     posts: firestore.FieldValue.arrayUnion({
-    //       image,
-    //       characterName
-    //     })
-    //   })
-    // }
-
+    //DOCUMENT DE USERS, GUARDAR POST DE CADA USER
     this.afstore.doc(`users/${this.user.getUID()}`)
       .update({
           posts: firestore.FieldValue.arrayUnion({
@@ -70,6 +53,12 @@ export class UploaderPage implements OnInit {
             })
           });
       });
+
+      //DOCUMENT DE POSTS, CONJUNT DE TOTS ELS POSTS
+      this.afstore.doc(`posts/${image}`).set({
+        characterName,
+        author: this.user.getUsername(),
+      })
 
     console.log("POST ENVIAT CORRECTAMENT")
 

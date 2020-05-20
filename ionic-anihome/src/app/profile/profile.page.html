@@ -8,7 +8,7 @@
 
     <div id="images">
       <div class="image" *ngFor="let post of (userPosts | async)?.posts">
-        <ion-card>
+        <ion-card (click)="goTo(post)">
           <ion-img src="https://ucarecdn.com/{{ post.image }}/"></ion-img>
         </ion-card>
         <ion-content>
