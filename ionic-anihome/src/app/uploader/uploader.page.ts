@@ -3,6 +3,9 @@ import { AngularFireDatabase} from '@angular/fire/database';
 import * as firebase from 'firebase';
 import { HttpClient } from '@angular/common/http';
 import { pipe } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { UserService } from '../user.service';
+import { firestore } from "firebase/app";
 
 @Component({
   selector: 'app-uploader',
@@ -12,19 +15,69 @@ import { pipe } from 'rxjs';
 export class UploaderPage implements OnInit {
 
   imageURL: string
+  characterName: string
 
-  constructor(public http: HttpClient) { 
+  constructor(
+    public http: HttpClient,
+    public afstore: AngularFirestore,
+    public user: UserService
+    ) { 
     
   }
 
   ngOnInit() {
   }
 
+  createPost(){
+    const image = this.imageURL
+    const characterName = this.characterName
+
+    // try {
+    //   this.afstore.doc(`users/${this.user.getUID()}`).update({
+    //     posts: firestore.FieldValue.arrayUnion({
+    //       image,
+    //       characterName
+    //     })
+    //   })
+    // } catch (error) {
+    //   console.log("Ha entrat aqui")
+    //   console.log('Error updating user', error)
+    //   this.afstore.doc(`users/${this.user.getUID()}`).set({
+    //     posts: firestore.FieldValue.arrayUnion({
+    //       image,
+    //       characterName
+    //     })
+    //   })
+    // }
+
+    this.afstore.doc(`users/${this.user.getUID()}`)
+      .update({
+          posts: firestore.FieldValue.arrayUnion({
+          image,
+          characterName
+        })
+      })
+      .then(() => {
+        // update successful (document exists)
+      })
+      .catch((error) => {
+        // console.log('Error updating user', error); // (document does not exists)
+        this.afstore.doc(`users/${this.user.getUID()}`)
+          .set({
+            posts: firestore.FieldValue.arrayUnion({
+              image,
+              characterName
+            })
+          });
+      });
+
+    console.log("POST ENVIAT CORRECTAMENT")
+
+  }
+
   fileChanged(event) {
     const files = event.target.files
     console.log(files)
-
-  
 
     const data = new FormData()
     data.append('file',files[0])

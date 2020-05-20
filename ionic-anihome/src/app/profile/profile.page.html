@@ -4,6 +4,17 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
+
+    <div id="images">
+      <div class="image" *ngFor="let post of (userPosts | async)?.posts">
+        <ion-card>
+          <ion-img src="https://ucarecdn.com/{{ post.image }}/"></ion-img>
+        </ion-card>
+        <ion-content>
+          <p>{{ post.characterName }}</p>
+        </ion-content>
+      </div>
+    </div>
 
 </ion-content>

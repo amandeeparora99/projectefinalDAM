@@ -16,10 +16,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import firebaseConfig from './firebase'
 import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { HttpClientModule } from '@angular/common/http';
+import { UserService } from './user.service';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,12 +41,15 @@ import { HttpClientModule } from '@angular/common/http';
     ScrollingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
-    HttpClientModule
+    AngularFirestoreModule,
+    HttpClientModule,
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    AngularFireAuth,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

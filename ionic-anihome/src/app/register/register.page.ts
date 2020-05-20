@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth'
-import { auth } from 'firebase/app'
+import { auth, User } from 'firebase/app'
 
 import { AlertController } from '@ionic/angular'
 import { Router } from '@angular/router';
+import { AngularFirestore } from "@angular/fire/firestore";
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-register',
@@ -18,8 +20,11 @@ export class RegisterPage implements OnInit {
 
   constructor(
     public afAuth: AngularFireAuth,
+    public afstore: AngularFirestore,
+    public user: UserService,
     public alert: AlertController,
-    public router: Router
+    public router: Router,
+    
     ) { }
 
   ngOnInit() {
@@ -34,9 +39,21 @@ export class RegisterPage implements OnInit {
 
     try {
       const res = await this.afAuth.createUserWithEmailAndPassword(username, password);
-      console.log(res)
+      
+      //Aqui el que fem es crear un document a /users/ i li posem el valor de username
+
+      this.afstore.doc(`users/${res.user.uid}`).set({
+        username
+      })
+
+      this.user.setUser({
+        username,
+        uid: res.user.uid
+      })
+      
       this.showAlert("Èxit!", "T'has registrat correctament!")
       this.router.navigate(['/tabs'])
+
     } catch (error) {
       console.dir(error)
       this.showAlert("Error!", error.message)
