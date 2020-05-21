@@ -25,6 +25,10 @@ const routes: Routes = [
         loadChildren: () => import('../post/post.module').then( m => m.PostPageModule)
       },
       {
+        path: 'edit-profile',
+        loadChildren: () => import('../edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/feed',
         pathMatch: 'full'

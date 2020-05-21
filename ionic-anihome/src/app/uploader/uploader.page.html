@@ -1,18 +1,24 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>uploader</ion-title>
+    <ion-title>Penjar Personatge</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <input type="file" *ngIf="!imageURL" (change)="fileChanged($event)"/>
 
-  <ion-card *ngIf="imageURL">
-    <img src="https://ucarecdn.com/{{imageURL}}/"/>
-    <ion-card-content>
-      <ion-input placeholder="Nom del personatge..." [(ngModel)]="characterName"></ion-input>
-      <ion-button shape="round" color="primary" (click)="createPost()">Envia</ion-button>
-    </ion-card-content>
-  </ion-card>
+  <app-loading *ngIf="busy"></app-loading>
+
+  <div *ngIf="!busy">
+    <input type="file" *ngIf="!imageURL" (change)="fileChanged($event)"/>
+
+    <ion-card *ngIf="imageURL">
+      <img src="https://ucarecdn.com/{{imageURL}}/"/>
+      <ion-card-content>
+        <ion-input placeholder="Nom del personatge..." [(ngModel)]="characterName"></ion-input>
+        <ion-button shape="round" color="primary" (click)="createPost()">Envia</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  
 
 </ion-content>

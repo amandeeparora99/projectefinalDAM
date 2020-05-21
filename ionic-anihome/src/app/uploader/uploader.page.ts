@@ -6,6 +6,8 @@ import { pipe } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { UserService } from '../user.service';
 import { firestore } from "firebase/app";
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-uploader',
@@ -17,10 +19,14 @@ export class UploaderPage implements OnInit {
   imageURL: string
   characterName: string
 
+  busy: boolean = false
+
   constructor(
     public http: HttpClient,
     public afstore: AngularFirestore,
-    public user: UserService
+    public user: UserService,
+    private alertController: AlertController,
+    private router: Router
     ) { 
     
   }
@@ -28,7 +34,9 @@ export class UploaderPage implements OnInit {
   ngOnInit() {
   }
 
-  createPost(){
+  async createPost(){
+    this.busy = true
+
     const image = this.imageURL
     const characterName = this.characterName
 
@@ -58,13 +66,33 @@ export class UploaderPage implements OnInit {
       this.afstore.doc(`posts/${image}`).set({
         characterName,
         author: this.user.getUsername(),
+        likes: []
       })
 
-    console.log("POST ENVIAT CORRECTAMENT")
+    console.log("Post enviat correctament")
+
+    this.busy = false
+    this.imageURL = ""
+    this.characterName = ""
+
+
+
+    const alert = await this.alertController.create({
+      header: 'Fet',
+      message: "El teu personatge s'ha enviat!",
+      buttons: ['Guai!']
+    })
+
+    await alert.present()
+
+    this.router.navigate(['/tabs/feed'])
 
   }
 
   fileChanged(event) {
+
+    this.busy = true
+
     const files = event.target.files
     console.log(files)
 
@@ -78,6 +106,8 @@ export class UploaderPage implements OnInit {
       
       console.log(event.file)
       this.imageURL = event.file
+      this.busy = false
+
     })
     }
 

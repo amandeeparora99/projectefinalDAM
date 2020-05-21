@@ -23,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './user.service';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
+import { ShareModule } from './share.module';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { AuthService } from './auth.service';
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     HttpClientModule,
+    ShareModule,
   ],
   providers: [
     StatusBar,

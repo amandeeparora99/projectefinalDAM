@@ -1,20 +1,36 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>profile</ion-title>
+    <ion-title>Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
 
-    <div id="images">
-      <div class="image" *ngFor="let post of (userPosts | async)?.posts">
-        <ion-card (click)="goTo(post)">
-          <ion-img src="https://ucarecdn.com/{{ post.image }}/"></ion-img>
-        </ion-card>
-        <ion-content>
-          <p>{{ post.characterName }}</p>
-        </ion-content>
-      </div>
+  <app-loading *ngIf="!posts"></app-loading>
+
+  <div id="profile-info" *ngIf="username">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4" class="user-image">
+          <ion-img src="https://ucarecdn.com/{{ profilePic }}/-/scale_crop/200x200/center"></ion-img>
+        </ion-col>
+        <ion-col size="8">
+          <p>{{ username }}</p>
+          <ion-button shape="round" color="primary" routerLink="/tabs/edit-profile">Editar perfil</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div id="images" *ngIf="posts">
+    <div class="image" *ngFor="let post of posts">
+      <ion-card (click)="goTo(post.image)">
+        <ion-img src="https://ucarecdn.com/{{ post.image }}/"></ion-img>
+      </ion-card>
+      <ion-content>
+        <p>{{ post.characterName }}</p>
+      </ion-content>
     </div>
+  </div>
 
 </ion-content>

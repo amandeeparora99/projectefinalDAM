@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ProfilePageRoutingModule } from './profile-routing.module';
+import { EditProfilePageRoutingModule } from './edit-profile-routing.module';
 
-import { ProfilePage } from './profile.page';
+import { EditProfilePage } from './edit-profile.page';
 import { ShareModule } from '../share.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { ShareModule } from '../share.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    ProfilePageRoutingModule,
+    EditProfilePageRoutingModule,
     ShareModule
   ],
-  declarations: [ProfilePage]
+  declarations: [EditProfilePage]
 })
-export class ProfilePageModule {}
+export class EditProfilePageModule {}
