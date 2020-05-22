@@ -14,7 +14,7 @@
   <input type="file" #fileBtn class="fileBtn" (change)="uploadPic($event)" />
 
   <div>
-    <ion-img (click)="updateProfilePic()" src="https://ucarecdn.com/{{ profilePic }}/-/scale_crop/150x150/center/"></ion-img>
+    <ion-img class="profile-pic" (click)="updateProfilePic()" src="https://ucarecdn.com/{{ profilePic }}/-/scale_crop/150x150/center/"></ion-img>
   </div>
 
   <div class="profile-info">

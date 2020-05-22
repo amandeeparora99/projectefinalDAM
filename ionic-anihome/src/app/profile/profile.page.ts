@@ -19,7 +19,8 @@ export class ProfilePage implements OnInit {
   profilePic: string
   
   constructor(private afs: AngularFirestore, private user: UserService, private router: Router) { 
-    const mainuser = afs.doc(`users/${this.user.getUID()}`)
+    console.log(this.username)
+    this.mainuser = afs.doc(`users/${this.user.getUID()}`)
     this.sub = this.mainuser.valueChanges().subscribe(event => {
       this.posts = event.posts
       this.username = event.username

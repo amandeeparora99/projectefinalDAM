@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { UserService } from '../user.service';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-profile',
@@ -27,6 +28,7 @@ export class EditProfilePage implements OnInit {
     private http: HttpClient, 
     private afs: AngularFirestore,
     private user: UserService,
+    private router: Router,
     private alertController: AlertController) { 
 
     this.mainuser = afs.doc(`users/${user.getUID()}`)
@@ -56,7 +58,8 @@ export class EditProfilePage implements OnInit {
 
     this.http.post<any>('https://upload.uploadcare.com/base/', data)
     .subscribe(event => {
-      const uuid = event.json().file
+      const uuid = event.file
+      console.log("EL UUID ES: "+uuid)
       this.mainuser.update({
         profilePic: uuid
       })
@@ -75,9 +78,28 @@ export class EditProfilePage implements OnInit {
     this.busy = true
 
     if(!this.password) {
-      return this.presentAlert("Error", "Has d'introduir la contrassenya actual per fer canvis!")
+      this.busy = false
+      return this.presentAlert("Error", "Has d'introduir la contrasenya actual per fer canvis!")
     }
 
-    await this.user.reAuth(this.user.getUsername(), this.password)
+    try {
+      await this.user.reAuth(this.user.getUsername(), this.password)
+    } catch (error) {
+      this.busy = false
+      return this.presentAlert("Error", "Contrasenya incorrecta")
+    }
+
+    if(this.newpassword) {
+      await this.user.updatePassword(this.newpassword)
+    }
+
+    this.password = ""
+    this.newpassword = ""
+    this.busy = false
+
+    await this.presentAlert("Fet!", "Perfil editat correctament")
+
+    this.router.navigate(['/tabs/profile'])
+    
   }
 }
