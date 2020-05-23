@@ -22,15 +22,16 @@
     </ion-grid>
   </div>
 
-  <div id="images" *ngIf="posts">
-    <div class="image" *ngFor="let post of posts">
-      <ion-card (click)="goTo(post.image)">
-        <ion-img src="https://ucarecdn.com/{{ post.image }}/"></ion-img>
-      </ion-card>
-      <ion-content>
-        <p>{{ post.characterName }}</p>
-      </ion-content>
+    <div id="images" *ngIf="posts">
+      <div class="image" *ngFor="let post of posts">
+        <ion-card (click)="goTo(post.image)">
+          <ion-img src="https://ucarecdn.com/{{ post.image }}/"></ion-img>
+        </ion-card>
+        <ion-content>
+          <p>{{ post.characterName }}</p>
+        </ion-content>
+      </div>
     </div>
-  </div>
+
 
 </ion-content>

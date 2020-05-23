@@ -1,9 +1,33 @@
 <ion-header>
-  <ion-toolbar>
+
+  <ion-toolbar color="tertiary">
     <ion-title>Llista de Personatges</ion-title>
   </ion-toolbar>
+
+  <ion-toolbar color="tertiary">
+    <ion-searchbar placeholder="Cercar personatge..." animated (ionChange)="onSearchChange($event)"></ion-searchbar>
+  </ion-toolbar>
+
 </ion-header>
 
-<ion-content>
+<ion-content padding>
+
+  <app-loading *ngIf="posts.length == 0 && !noPostsFound"></app-loading>
+
+  <div class="noPostsFound" *ngIf="noPostsFound">
+    <h4 class="gray">No s'ha trobat el personatge</h4>
+  </div>
+
+  <div *ngIf="!noPostsFound">
+    <div *ngFor="let post of posts">
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <img src="https://ucarecdn.com/{{ post.Id }}/-/scale_crop/200x200/center">
+        </ion-thumbnail>
+        <ion-label>{{ post.Data.characterName }}</ion-label>
+      </ion-item>
+    </div>
+  </div>
+
 
 </ion-content>
