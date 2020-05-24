@@ -42,5 +42,9 @@ export class LoginPage implements OnInit {
       }
     }
   }
+
+  redirectRegister() {
+    this.router.navigate(['/register'])
+  }
   
 }

@@ -1,29 +1,38 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Register</ion-title>
+  <ion-toolbar color="tertiary">
+    <ion-title>Registra't</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
- <ion-list>
+<ion-content padding color="tertiary">
 
-    <ion-item>
-      <ion-label position="floating">Username</ion-label>
-      <ion-input type="text" [(ngModel)]="username"></ion-input>
+  <div id="logo" padding class="ion-text-center">
+    <img src="https://i.ibb.co/BfGYSGh/icons8-naruto.png" width="30%">
+    <h2 color="light">AniHome</h2>
+  </div>
+
+ <ion-list class="listbg">
+
+    <ion-item class="rounded-item">
+      <ion-icon name="at-outline"></ion-icon>
+      <ion-input type="text" [(ngModel)]="username" placeholder="Correu"></ion-input>
     </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" [(ngModel)]="password"></ion-input>
+    <ion-item class="rounded-item">
+      <ion-icon name="lock-open-outline"></ion-icon>
+      <ion-input type="password" [(ngModel)]="password" placeholder="Contrasenya"></ion-input>
     </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Confirm Password</ion-label>
-      <ion-input type="password" [(ngModel)]="cpassword"></ion-input>
+    <ion-item class="rounded-item">
+      <ion-icon name="lock-closed-outline"></ion-icon>
+      <ion-input type="password" [(ngModel)]="cpassword" placeholder="Repeteix la contrasenya"></ion-input>
     </ion-item>
+    <div class="btnLogin" padding text-center>
+      <ion-button fill="solid" expand="block" color="light" (click)="register()">Registrar-se</ion-button>
+    </div>
 
-    <br>
-    <ion-button fill="solid" expand="block" color="dark" (click)="register()">Sign up</ion-button>
+    <div class="ion-text-center">
+      <p>Ja ets usuari? <a class="btn-loginRedirect" (click)="redirectLogin()">Entra aqui!</a></p>
+    </div>
+    
     
  </ion-list>
 </ion-content>

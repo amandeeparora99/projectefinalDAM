@@ -73,4 +73,8 @@ export class RegisterPage implements OnInit {
 
   }
 
+  redirectLogin(){
+    this.router.navigate(['/login'])
+  }
+
 }
