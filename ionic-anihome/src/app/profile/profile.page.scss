@@ -12,10 +12,20 @@
     height: 200px;
 }
 
-.noPostsFound {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+
+.profile-info{
+    background-color: #5260ff;
+}
+
+.imatgeperfil {
+    padding-top: 10px !important;
+    background-color: #5260ff;
+}
+
+.white-text {
+    color: white;
+}
+
+.orange-text {
+    color: darkorange;
+}

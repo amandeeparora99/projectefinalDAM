@@ -5,7 +5,7 @@
   </ion-toolbar>
 
   <ion-toolbar color="tertiary">
-    <ion-searchbar placeholder="Cercar personatge..." animated (ionChange)="onSearchChange($event)"></ion-searchbar>
+    <ion-searchbar class="roundedSearchbar" placeholder="Cercar personatge..." animated (ionChange)="onSearchChange($event)"></ion-searchbar>
   </ion-toolbar>
 
 </ion-header>
@@ -20,12 +20,20 @@
 
   <div *ngIf="!noPostsFound">
     <div *ngFor="let post of posts">
-      <ion-item>
-        <ion-thumbnail slot="start">
-          <img src="https://ucarecdn.com/{{ post.Id }}/-/scale_crop/200x200/center">
-        </ion-thumbnail>
-        <ion-label>{{ post.Data.characterName }}</ion-label>
-      </ion-item>
+      <ion-list>
+
+        <ion-item (click)="goTo(post.Id)">
+          <ion-thumbnail slot="start">
+            <img style="border-radius: 50%;" src="https://ucarecdn.com/{{ post.Id }}/-/scale_crop/200x200/center">
+          </ion-thumbnail>
+          <ion-label>
+            <h4>{{ post.Data.characterName }}</h4>
+            <p>ONE PIECE</p>
+            <p>Luffy es un nen petit molt petit que.</p>
+          </ion-label>
+        </ion-item>
+
+      </ion-list>
     </div>
   </div>
 

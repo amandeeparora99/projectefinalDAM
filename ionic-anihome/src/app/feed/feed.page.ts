@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-feed',
@@ -12,7 +13,7 @@ export class FeedPage implements OnInit {
   noPostsFound: boolean = false
 
 
-  constructor(private afs: AngularFirestore) { }
+  constructor(private afs: AngularFirestore, private router: Router) { }
 
   ngOnInit() {
 
@@ -61,6 +62,11 @@ export class FeedPage implements OnInit {
       console.log("AQUI TENIM L'ARRAY DE POSTS:")
       console.log(this.posts)
     })
+  }
+
+  goTo(postID: string) {
+    console.log("POST ID ABANS DE SER ENVIAT A TABS: "+postID)
+    this.router.navigate(['/tabs/post/'+ postID])
   }
 
 }
