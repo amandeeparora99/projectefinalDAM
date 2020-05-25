@@ -54,7 +54,7 @@ export class EditProfilePage implements OnInit {
     const data = new FormData()
     data.append('file', files[0])
     data.append('UPLOADCARE_STORE', '1')
-    data.append('UPLOADCARE_PUB_KEY', '1ad55f3c8983ea0341bb')
+    data.append('UPLOADCARE_PUB_KEY', '99e734accdd2b90d4d81')
 
     this.http.post<any>('https://upload.uploadcare.com/base/', data)
     .subscribe(event => {

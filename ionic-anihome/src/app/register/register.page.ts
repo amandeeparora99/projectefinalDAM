@@ -43,12 +43,14 @@ export class RegisterPage implements OnInit {
       //Aqui el que fem es crear un document a /users/ i li posem el valor de username
 
       this.afstore.doc(`users/${res.user.uid}`).set({
-        username
+        username,
+        isAdmin: '',
+        profilePic: '0abaadc4-f346-4c29-841b-f5de4493f35c'
       })
 
       this.user.setUser({
         username,
-        uid: res.user.uid
+        uid: res.user.uid,
       })
       
       this.showAlert("Èxit!", "T'has registrat correctament!")

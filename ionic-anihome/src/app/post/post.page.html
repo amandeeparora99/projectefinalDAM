@@ -9,94 +9,261 @@
   <app-loading *ngIf="!post"></app-loading>
 
   <div *ngIf="post as postData">
+    <div *ngIf="isAdmin == '' && postData.status == 'accepted'">
+      <img src="https://ucarecdn.com/{{ postID }}/">
 
-    <img src="https://ucarecdn.com/{{ postID }}/">
+      <ion-item>
+        <h2>Carecterístiques</h2>
+      </ion-item>
 
-    <ion-item>
-      <h2>Carecterístiques</h2>
-    </ion-item>
-    
-    <ion-item>
-      <ion-icon item-right name="code-working-outline"></ion-icon>
-      <ion-label stacked>&nbsp;Nom complet:</ion-label>
-      <p>{{ postData.characterName }}</p>
-    </ion-item>
+      <ion-item>
+        <ion-icon item-right name="code-working-outline"></ion-icon>
+        <ion-label stacked>&nbsp;Nom complet:</ion-label>
+        <p>{{ postData.characterName }}</p>
+      </ion-item>
 
-    <ion-item>
-      <ion-label stacked>Descripció:</ion-label>
-      <p>{{ postData.characterDesc }}</p>
-    </ion-item>
+      <ion-item>
+        <ion-label stacked>Descripció:</ion-label>
+        <p>{{ postData.characterDesc }}</p>
+      </ion-item>
 
-    <ion-item>
-      <ion-icon item-right name="videocam-outline"></ion-icon>
-      <ion-label stacked>&nbsp;Anime en que pertany:</ion-label>
-      <p>{{ postData.animeName }}</p>
-    </ion-item>
+      <ion-item>
+        <ion-icon item-right name="videocam-outline"></ion-icon>
+        <ion-label stacked>&nbsp;Anime en que pertany:</ion-label>
+        <p>{{ postData.animeName }}</p>
+      </ion-item>
 
-    <ion-item>
-      <ion-icon name="transgender-outline"></ion-icon>
-      <ion-label stacked>&nbsp;Sexe:</ion-label>
-      <p>{{ postData.characterSexe }}</p>
-    </ion-item>
+      <ion-item>
+        <ion-icon name="transgender-outline"></ion-icon>
+        <ion-label stacked>&nbsp;Sexe:</ion-label>
+        <p>{{ postData.characterSexe }}</p>
+      </ion-item>
 
-    <ion-item>
-      <ion-icon name="body-outline"></ion-icon>
-      <ion-label stacked>&nbsp;Rang d'edat:</ion-label>
-      <p>{{ postData.characterAge }}</p>
-    </ion-item>
+      <ion-item>
+        <ion-icon name="body-outline"></ion-icon>
+        <ion-label stacked>&nbsp;Rang d'edat:</ion-label>
+        <p>{{ postData.characterAge }}</p>
+      </ion-item>
 
-    <ion-item>
-      <ion-icon name="fitness-outline"></ion-icon>
-      <ion-label stacked>&nbsp;Tipus/poder:</ion-label>
-      <p>{{ postData.characterType }}</p>
-    </ion-item>
-    
-    <ion-item>
-      <ion-icon name="tv-outline"></ion-icon>
-      <ion-label stacked>&nbsp;Apareix en un anime:</ion-label>
-      <p>
-        <ion-icon [name]="checkTrueFalse(postData.animeCheckbox) ? 'close-circle-outline': 'checkmark-circle-outline'"></ion-icon>
-      </p>
-    </ion-item>
+      <ion-item>
+        <ion-icon name="fitness-outline"></ion-icon>
+        <ion-label stacked>&nbsp;Tipus/poder:</ion-label>
+        <p>{{ postData.characterType }}</p>
+      </ion-item>
 
-    <ion-item>
-      <ion-icon name="tv-outline"></ion-icon>
-      <ion-label stacked>&nbsp;Apareix en un manga:</ion-label>
-      <p>
-        <ion-icon [name]="checkTrueFalse(postData.mangaCheckbox) ? 'close-circle-outline': 'checkmark-circle-outline'"></ion-icon>
-      </p>
-    </ion-item>
+      <ion-item>
+        <ion-icon name="tv-outline"></ion-icon>
+        <ion-label stacked>&nbsp;Apareix en un anime:</ion-label>
+        <p>
+          <ion-icon
+            [name]="checkTrueFalse(postData.animeCheckbox) ? 'close-circle-outline': 'checkmark-circle-outline'">
+          </ion-icon>
+        </p>
+      </ion-item>
 
-    <ion-item>
-      <ion-icon name="tv-outline"></ion-icon>
-      <ion-label stacked>&nbsp;Apareix en una pel·lícula:</ion-label>
-      <p>
-        <ion-icon [name]="checkTrueFalse(postData.movieCheckbox) ? 'close-circle-outline': 'checkmark-circle-outline'"></ion-icon>
-      </p>
-    </ion-item>
+      <ion-item>
+        <ion-icon name="tv-outline"></ion-icon>
+        <ion-label stacked>&nbsp;Apareix en un manga:</ion-label>
+        <p>
+          <ion-icon
+            [name]="checkTrueFalse(postData.mangaCheckbox) ? 'close-circle-outline': 'checkmark-circle-outline'">
+          </ion-icon>
+        </p>
+      </ion-item>
 
-    <ion-item>
-      <ion-icon name="person-outline"></ion-icon>
-      <ion-label stacked>&nbsp;Cabells:</ion-label>
-      <p>{{ postData.characterHair }}, {{ postData.characterHairColor }}</p>
-    </ion-item>
+      <ion-item>
+        <ion-icon name="tv-outline"></ion-icon>
+        <ion-label stacked>&nbsp;Apareix en una pel·lícula:</ion-label>
+        <p>
+          <ion-icon
+            [name]="checkTrueFalse(postData.movieCheckbox) ? 'close-circle-outline': 'checkmark-circle-outline'">
+          </ion-icon>
+        </p>
+      </ion-item>
 
-    <ion-item>
-      <ion-icon name="eye-outline"></ion-icon>
-      <ion-label stacked>&nbsp;Ulls:</ion-label>
-      <p>{{ postData.characterEyes }}, {{ postData.characterEyesColor }}</p>
-    </ion-item>
-    
-    <ion-item>
-      <ion-icon name="document-text-outline"></ion-icon>
-      <ion-label stacked>&nbsp;Autor:</ion-label>
-      <p>{{ postData.author }}</p>
-    </ion-item>
-      
-    <ion-item (click)="toggleHeart()">
-      <ion-icon [name]="heartType"></ion-icon>
-      <ion-label stacked>&nbsp;Donar Like!</ion-label>
-      <p>Admiradors: {{ postData.likes.length }}</p>
-    </ion-item>
+      <ion-item>
+        <ion-icon name="person-outline"></ion-icon>
+        <ion-label stacked>&nbsp;Cabells:</ion-label>
+        <p>{{ postData.characterHair }}, {{ postData.characterHairColor }}</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="eye-outline"></ion-icon>
+        <ion-label stacked>&nbsp;Ulls:</ion-label>
+        <p>{{ postData.characterEyes }}, {{ postData.characterEyesColor }}</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="document-text-outline"></ion-icon>
+        <ion-label stacked>&nbsp;Autor:</ion-label>
+        <p>{{ postData.author }}</p>
+      </ion-item>
+
+      <ion-item (click)="toggleHeart()">
+        <ion-icon [name]="heartType"></ion-icon>
+        <ion-label stacked>&nbsp;Donar Like!</ion-label>
+        <p>Admiradors: {{ postData.likes.length }}</p>
+      </ion-item>
+
+    </div>
   </div>
+
+
+
+  <!-- SECCIO ADMINISTRADOR -->
+
+
+
+  <div *ngIf="post as postData">
+
+    <div *ngIf="isAdmin == 'true'">
+      <img src="https://ucarecdn.com/{{ postID }}/">
+
+      <ion-item>
+        <h2>Carecterístiques <a style="color:darkorange;">ADMIN</a></h2>
+      </ion-item>
+
+      <ion-item>
+        <ion-input placeholder="Nom complet" value="{{ characterName }}" [(ngModel)]="characterName"></ion-input>
+        <ion-icon item-right name="code-working-outline"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-textarea placeholder="Breu descripció del personatge..." value="{{ postData.characterDesc }}" [(ngModel)]="characterDesc"></ion-textarea>
+        <ion-icon item-right name="chatbubble-ellipses-outline"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-input placeholder="Nom de l'anime/manga" value="{{ animeName }}" [(ngModel)]="animeName"></ion-input>
+        <ion-icon item-right name="videocam-outline"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Sexe</ion-label>
+        <ion-select value="{{ characterSexe }}" [(ngModel)]="characterSexe">
+          <ion-select-option value="masculi">Masculí</ion-select-option>
+          <ion-select-option value="femeni">Femení</ion-select-option>
+          <ion-select-option value="altre">Altre</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Rang d'edat</ion-label>
+        <ion-select value="{{ characterAge }}" [(ngModel)]="characterAge">
+          <ion-select-option value="nen">Nen</ion-select-option>
+          <ion-select-option value="adolescent">Adolescent</ion-select-option>
+          <ion-select-option value="adult-jove">Adult jove</ion-select-option>
+          <ion-select-option value="mitjana-edat">Mitjana edat</ion-select-option>
+          <ion-select-option value="vell">Vell</ion-select-option>
+          <ion-select-option value="senseedat">Sense edat</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Tipus</ion-label>
+        <ion-select value="{{ characterType }}" [(ngModel)]="characterType">
+          <ion-select-option value="huma">Humà</ion-select-option>
+          <ion-select-option value="animal">Animal</ion-select-option>
+          <ion-select-option value="sobrenatural">Sobrenatural</ion-select-option>
+          <ion-select-option value="robot">Robot/cíborg</ion-select-option>
+          <ion-select-option value="altre">Altre/No humà</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Manga</ion-label>
+        <ion-checkbox slot="end" color="tertiary" checked="{{ mangaCheckbox }}" [(ngModel)]="mangaCheckbox"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Anime</ion-label>
+        <ion-checkbox slot="end" color="tertiary" checked="{{ animeCheckbox }}" [(ngModel)]="animeCheckbox"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Pel·lícula</ion-label>
+        <ion-checkbox slot="end" color="tertiary" checked="{{ movieCheckbox }}" [(ngModel)]="movieCheckbox"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Cabells</ion-label>
+        <ion-select [(ngModel)]="characterHair" value="{{ characterHair }}" (ionChange)="ionChangeCabells()" value="curt">
+          <ion-select-option value="curt">Curt</ion-select-option>
+          <ion-select-option value="alturacoll">Altura coll</ion-select-option>
+          <ion-select-option value="llarg">Llarg</ion-select-option>
+          <ion-select-option value="moltllarg">Molt llarg</ion-select-option>
+          <ion-select-option value="sense">Sense cabells</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Color cabells</ion-label>
+        <ion-select [(ngModel)]="characterHairColor" value="{{ characterHairColor }}" [disabled]="noTeCabells ? true: false">
+          <ion-select-option value="sense">Sense cabells</ion-select-option>
+          <ion-select-option value="negre">Negre</ion-select-option>
+          <ion-select-option value="ros">Ros/groc</ion-select-option>
+          <ion-select-option value="blau">Blau</ion-select-option>
+          <ion-select-option value="castany">Castany/marró</ion-select-option>
+          <ion-select-option value="verd">Verd</ion-select-option>
+          <ion-select-option value="taronja">Taronja</ion-select-option>
+          <ion-select-option value="lila">Lila</ion-select-option>
+          <ion-select-option value="vermell">Vermell</ion-select-option>
+          <ion-select-option value="rosa">Rosa</ion-select-option>
+          <ion-select-option value="blanc">Blanc</ion-select-option>
+          <ion-select-option value="altre">Altre</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Ulls</ion-label>
+        <ion-select [(ngModel)]="characterEyes" value="{{ characterEyes }}" (ionChange)="ionChangeUlls()" value="normals">
+          <ion-select-option value="normals">Normals</ion-select-option>
+          <ion-select-option value="petits">Petits</ion-select-option>
+          <ion-select-option value="grans">Grans</ion-select-option>
+          <ion-select-option value="no-visibles">No visibles</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Color ulls</ion-label>
+        <ion-select [(ngModel)]="characterEyesColor" value="{{ characterEyesColor }}" [disabled]="noTeUlls ? true: false">
+          <ion-select-option value="no-visibles">No visibles</ion-select-option>
+          <ion-select-option value="negre">Negre</ion-select-option>
+          <ion-select-option value="groc">Groc</ion-select-option>
+          <ion-select-option value="blau">Blau</ion-select-option>
+          <ion-select-option value="marro">Marró</ion-select-option>
+          <ion-select-option value="verd">Verd</ion-select-option>
+          <ion-select-option value="taronja">Taronja</ion-select-option>
+          <ion-select-option value="lila">Lila</ion-select-option>
+          <ion-select-option value="vermell">Vermell</ion-select-option>
+          <ion-select-option value="rosa">Rosa</ion-select-option>
+          <ion-select-option value="blanc">Blanc</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="document-text-outline"></ion-icon>
+        <ion-label stacked>&nbsp;Autor:</ion-label>
+        <p>{{ postData.author }}</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Status</ion-label>
+        <ion-select [(ngModel)]="status" value="{{ postData.status }}" (ionChange)="ionChangeStatus()" >
+          <ion-select-option value="accepted">Acceptat</ion-select-option>
+          <ion-select-option value="pending">Pendent</ion-select-option>
+          <ion-select-option value="denied">Denegat</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item (click)="toggleHeart()">
+        <ion-icon [name]="heartType"></ion-icon>
+        <ion-label stacked>&nbsp;Donar Like!</ion-label>
+        <p>Admiradors: {{ postData.likes.length }}</p>
+      </ion-item>
+
+      <ion-button fill="solid" expand="block" color="tertiary" (click)="validateForm()">Guardar edició</ion-button>
+    </div>
+  </div>
+
 </ion-content>
