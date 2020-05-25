@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="tertiary">
     <ion-title>Penjar Personatge</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,16 +9,140 @@
   <app-loading *ngIf="busy"></app-loading>
 
   <div *ngIf="!busy">
-    <input type="file" *ngIf="!imageURL" (change)="fileChanged($event)"/>
+    <input type="file" *ngIf="!imageURL" (change)="fileChanged($event)" class="filebtn" #fileButton />
 
-    <ion-card *ngIf="imageURL">
-      <img src="https://ucarecdn.com/{{imageURL}}/"/>
-      <ion-card-content>
-        <ion-input placeholder="Nom del personatge..." [(ngModel)]="characterName"></ion-input>
-        <ion-button shape="round" color="primary" (click)="createPost()">Envia</ion-button>
-      </ion-card-content>
-    </ion-card>
+    <div class="centerElem">
+      <ion-button shape="round" color="light" (click)="uploadFile()" *ngIf="!imageURL">Crear Personatge</ion-button>
+    </div>
+    
+    <div *ngIf="imageURL">
+      <img src="https://ucarecdn.com/{{imageURL}}/" />
+        
+      <ion-item>
+          <h2>Fitxa tècnica</h2>
+        </ion-item>
+
+        <ion-item>
+          <ion-input placeholder="Nom complet" [(ngModel)]="characterName"></ion-input>
+          <ion-icon item-right name="code-working-outline"></ion-icon>
+        </ion-item>
+
+        <ion-item>
+          <ion-textarea placeholder="Breu descripció del personatge..." [(ngModel)]="characterDesc"></ion-textarea>
+          <ion-icon item-right name="chatbubble-ellipses-outline"></ion-icon>
+        </ion-item>
+
+        <ion-item>
+          <ion-input placeholder="Nom de l'anime/manga" [(ngModel)]="animeName"></ion-input>
+          <ion-icon item-right name="videocam-outline"></ion-icon>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Sexe</ion-label>
+          <ion-select value="masculi" [(ngModel)]="characterSexe">
+            <ion-select-option value="masculi">Masculí</ion-select-option>
+            <ion-select-option value="femeni">Femení</ion-select-option>
+            <ion-select-option value="altre">Altre</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Rang d'edat</ion-label>
+          <ion-select value="nen" [(ngModel)]="characterAge">
+            <ion-select-option value="nen">Nen</ion-select-option>
+            <ion-select-option value="adolescent">Adolescent</ion-select-option>
+            <ion-select-option value="adult-jove">Adult jove</ion-select-option>
+            <ion-select-option value="mitjana-edat">Mitjana edat</ion-select-option>
+            <ion-select-option value="vell">Vell</ion-select-option>
+            <ion-select-option value="senseedat">Sense edat</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Tipus</ion-label>
+          <ion-select value="huma" [(ngModel)]="characterType">
+            <ion-select-option value="huma">Humà</ion-select-option>
+            <ion-select-option value="animal">Animal</ion-select-option>
+            <ion-select-option value="sobrenatural">Sobrenatural</ion-select-option>
+            <ion-select-option value="robot">Robot/cíborg</ion-select-option>
+            <ion-select-option value="altre">Altre/No humà</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Manga</ion-label>
+          <ion-checkbox slot="end" color="tertiary" checked [(ngModel)]="mangaCheckbox"></ion-checkbox>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Anime</ion-label>
+          <ion-checkbox slot="end" color="tertiary" checked [(ngModel)]="animeCheckbox"></ion-checkbox>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Pel·lícula</ion-label>
+          <ion-checkbox slot="end" color="tertiary" checked [(ngModel)]="movieCheckbox"></ion-checkbox>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Cabells</ion-label>
+          <ion-select [(ngModel)]="cabells" (ionChange)="ionChangeCabells()" value="curt">
+            <ion-select-option value="curt">Curt</ion-select-option>
+            <ion-select-option value="alturacoll">Altura coll</ion-select-option>
+            <ion-select-option value="llarg">Llarg</ion-select-option>
+            <ion-select-option value="moltllarg">Molt llarg</ion-select-option>
+            <ion-select-option value="sense">Sense cabells</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Color cabells</ion-label>
+          <ion-select [(ngModel)]="cabellsColor" [disabled]="noTeCabells ? true: false">
+            <ion-select-option value="sense">Sense cabells</ion-select-option>
+            <ion-select-option value="negre">Negre</ion-select-option>
+            <ion-select-option value="ros">Ros/groc</ion-select-option>
+            <ion-select-option value="blau">Blau</ion-select-option>
+            <ion-select-option value="castany">Castany/marró</ion-select-option>
+            <ion-select-option value="verd">Verd</ion-select-option>
+            <ion-select-option value="taronja">Taronja</ion-select-option>
+            <ion-select-option value="lila">Lila</ion-select-option>
+            <ion-select-option value="vermell">Vermell</ion-select-option>
+            <ion-select-option value="rosa">Rosa</ion-select-option>
+            <ion-select-option value="blanc">Blanc</ion-select-option>
+            <ion-select-option value="altre">Altre</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Ulls</ion-label>
+          <ion-select [(ngModel)]="ulls" (ionChange)="ionChangeUlls()" value="normals">
+            <ion-select-option value="normals">Normals</ion-select-option>
+            <ion-select-option value="petits">Petits</ion-select-option>
+            <ion-select-option value="grans">Grans</ion-select-option>
+            <ion-select-option value="no-visibles">No visibles</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Color ulls</ion-label>
+          <ion-select [(ngModel)]="ullsColor" [disabled]="noTeUlls ? true: false">
+            <ion-select-option value="no-visibles">No visibles</ion-select-option>
+            <ion-select-option value="negre">Negre</ion-select-option>
+            <ion-select-option value="groc">Groc</ion-select-option>
+            <ion-select-option value="blau">Blau</ion-select-option>
+            <ion-select-option value="marro">Marró</ion-select-option>
+            <ion-select-option value="verd">Verd</ion-select-option>
+            <ion-select-option value="taronja">Taronja</ion-select-option>
+            <ion-select-option value="lila">Lila</ion-select-option>
+            <ion-select-option value="vermell">Vermell</ion-select-option>
+            <ion-select-option value="rosa">Rosa</ion-select-option>
+            <ion-select-option value="blanc">Blanc</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <br>
+        <ion-button fill="solid" expand="block" color="tertiary" (click)="validateForm()">Envia</ion-button>
+
+    </div>
   </div>
-  
 
 </ion-content>

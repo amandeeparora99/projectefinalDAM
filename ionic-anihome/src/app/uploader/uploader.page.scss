@@ -1,0 +1,17 @@
+.filebtn{
+    opacity: 0;
+    position: absolute;
+    top: -100em;
+    left: -100em;
+}
+
+.centerElem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.whitebg {
+    background-color: white;
+}
