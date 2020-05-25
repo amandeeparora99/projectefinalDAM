@@ -59,7 +59,7 @@ export class UploaderPage implements OnInit {
     const image = this.imageURL
     const characterName = this.characterName
     const characterDesc = this.characterDesc
-    const animeName = this.animeName
+    const animeName = this.animeName.toUpperCase()
     const characterSexe = this.characterSexe
     const characterAge = this.characterAge
     const characterType = this.characterType
@@ -120,6 +120,18 @@ export class UploaderPage implements OnInit {
     //DOCUMENT DE POSTS, CONJUNT DE TOTS ELS POSTS
     this.afstore.doc(`posts/${image}`).set({
       characterName,
+      characterDesc,
+      animeName,
+      characterSexe,
+      characterAge,
+      characterType,
+      mangaCheckbox,
+      animeCheckbox,
+      movieCheckbox,
+      characterHair,
+      characterHairColor,
+      characterEyes,
+      characterEyesColor,
       author: this.user.getUsername(),
       likes: []
       
@@ -155,16 +167,15 @@ export class UploaderPage implements OnInit {
     const data = new FormData()
     data.append('file', files[0])
     data.append('UPLOADCARE_STORE', '1')
-    data.append('UPLOADCARE_PUB_KEY', '1ad55f3c8983ea0341bb')
+    data.append('UPLOADCARE_PUB_KEY', '99e734accdd2b90d4d81')
 
     this.http.post<any>('https://upload.uploadcare.com/base/', data)
       .subscribe(event => {
-
         console.log(event.file)
         this.imageURL = event.file
         this.busy = false
+    })
 
-      })
   }
 
   uploadFile() {
@@ -207,7 +218,7 @@ export class UploaderPage implements OnInit {
     else if (this.animeName == "") {
       this.presentAlert("Has de dir a quin anime pertany!")
     }
-    else if(this.animeCheckbox == false && this.mangaCheckbox == false && this.movieCheckbox == false){
+    else if(!this.animeCheckbox && !this.mangaCheckbox && !this.movieCheckbox){
       this.presentAlert("El personatge ha hagut d'aparèixer en un ANIME, MANGA o PEL·LÍCULA!")
     }
     else{
