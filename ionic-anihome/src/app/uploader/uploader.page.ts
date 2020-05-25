@@ -32,10 +32,10 @@ export class UploaderPage implements OnInit {
   characterType: string = 'huma'
 
   mangaCheckbox: boolean = true
-  animeCheckbox: boolean
-  movieCheckbox: boolean
+  animeCheckbox: boolean = false
+  movieCheckbox: boolean = false
 
-
+  status: string = 'pending'
   busy: boolean = false
 
   @ViewChild('fileButton', { static: false }) fileButton
@@ -70,6 +70,23 @@ export class UploaderPage implements OnInit {
     const characterHairColor = this.cabellsColor
     const characterEyes = this.ulls
     const characterEyesColor = this.ullsColor
+    const status = 'pending'
+
+    // TESTING
+    // console.log(image)
+    // console.log(characterName)
+    // console.log(characterDesc)
+    // console.log(animeName)
+    // console.log(characterSexe)
+    // console.log(characterAge)
+    // console.log(characterType)
+    // console.log(mangaCheckbox)
+    // console.log(animeCheckbox)
+    // console.log(movieCheckbox)
+    // console.log(characterHair)
+    // console.log(characterHairColor)
+    // console.log(characterEyes)
+    // console.log(characterEyesColor)
 
     //DOCUMENT DE USERS, GUARDAR POST DE CADA USER
     this.afstore.doc(`users/${this.user.getUID()}`)
@@ -133,6 +150,7 @@ export class UploaderPage implements OnInit {
       characterEyes,
       characterEyesColor,
       author: this.user.getUsername(),
+      status,
       likes: []
       
     })

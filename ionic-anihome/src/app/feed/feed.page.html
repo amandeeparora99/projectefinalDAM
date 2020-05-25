@@ -18,11 +18,32 @@
     <h4 class="gray">No s'ha trobat el personatge</h4>
   </div>
 
-  <div *ngIf="!noPostsFound">
+  <div *ngIf="!noPostsFound && isAdmin == ''">
     <div *ngFor="let post of posts">
       <ion-list>
 
         <ion-item (click)="goTo(post.Id)">
+          <ion-thumbnail slot="start">
+            <img style="border-radius: 50%;" src="https://ucarecdn.com/{{ post.Id }}/-/scale_crop/200x200/center">
+          </ion-thumbnail>
+          <ion-label>
+            <h4>{{ post.Data.characterName }}</h4>
+            <p>ONE PIECE</p>
+            <p>{{ post.Data.characterDesc }}</p>
+          </ion-label>
+        </ion-item>
+
+      </ion-list>
+    </div>
+  </div>
+
+  <!-- FEED PER L'ADMINISTRADOR -->
+
+  <div *ngIf="!noPostsFound && isAdmin == 'true'">
+    <div *ngFor="let post of posts">
+      <ion-list>
+
+        <ion-item [color]="statusColor(post.Data.status)" (click)="goTo(post.Id)">
           <ion-thumbnail slot="start">
             <img style="border-radius: 50%;" src="https://ucarecdn.com/{{ post.Id }}/-/scale_crop/200x200/center">
           </ion-thumbnail>

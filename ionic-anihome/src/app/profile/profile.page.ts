@@ -20,7 +20,7 @@ export class ProfilePage implements OnInit {
   
   constructor(private afs: AngularFirestore, private user: UserService, private router: Router) { 
     this.mainuser = afs.doc(`users/${this.user.getUID()}`)
-    console.log("HA ENTRAT EL USER: "+this.mainuser)
+    console.log("HA ENTRAT A PROFILE EL USER: "+this.mainuser)
     this.sub = this.mainuser.valueChanges().subscribe(event => {
       this.posts = event.posts
       this.username = event.username

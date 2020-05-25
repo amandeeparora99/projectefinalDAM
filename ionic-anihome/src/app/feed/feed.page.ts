@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-feed',
@@ -11,9 +12,18 @@ export class FeedPage implements OnInit {
 
   posts = []
   noPostsFound: boolean = false
+  mainuser
+  sub
+  isAdmin: string
 
 
-  constructor(private afs: AngularFirestore, private router: Router) { }
+  constructor(private afs: AngularFirestore, private user: UserService, private router: Router) {
+    this.mainuser = afs.doc(`users/${this.user.getUID()}`)
+    console.log("HA ENTRAT A FEED EL USER: "+this.mainuser)
+    this.sub = this.mainuser.valueChanges().subscribe(event => {
+      this.isAdmin = event.isAdmin
+    })
+   }
 
   ngOnInit() {
 
@@ -69,4 +79,15 @@ export class FeedPage implements OnInit {
     this.router.navigate(['/tabs/post/'+ postID])
   }
 
+  statusColor(status: string){
+    if (status == "pending") {
+      return "warning"
+    }
+    else if(status == "accepted") {
+      return "success"
+    }
+    else{
+      return "danger"
+    }
+  }
 }
