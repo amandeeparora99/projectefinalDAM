@@ -8,13 +8,95 @@
 
   <app-loading *ngIf="!post"></app-loading>
 
-  <ion-card *ngIf="post as postData">
-    <ion-img src="https://ucarecdn.com/{{ postID }}/"></ion-img>
-    <ion-card-content>
-      <p>AUTOR DEL PERSONATGE: {{ postData.author }}</p>
-    </ion-card-content>
+  <div *ngIf="post as postData">
+
+    <img src="https://ucarecdn.com/{{ postID }}/">
+
+    <ion-item>
+      <h2>Carecterístiques</h2>
+    </ion-item>
+    
+    <ion-item>
+      <ion-icon item-right name="code-working-outline"></ion-icon>
+      <ion-label stacked>&nbsp;Nom complet:</ion-label>
+      <p>{{ postData.characterName }}</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Descripció:</ion-label>
+      <p>{{ postData.characterDesc }}</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon item-right name="videocam-outline"></ion-icon>
+      <ion-label stacked>&nbsp;Anime en que pertany:</ion-label>
+      <p>{{ postData.animeName }}</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="transgender-outline"></ion-icon>
+      <ion-label stacked>&nbsp;Sexe:</ion-label>
+      <p>{{ postData.characterSexe }}</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="body-outline"></ion-icon>
+      <ion-label stacked>&nbsp;Rang d'edat:</ion-label>
+      <p>{{ postData.characterAge }}</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="fitness-outline"></ion-icon>
+      <ion-label stacked>&nbsp;Tipus/poder:</ion-label>
+      <p>{{ postData.characterType }}</p>
+    </ion-item>
+    
+    <ion-item>
+      <ion-icon name="tv-outline"></ion-icon>
+      <ion-label stacked>&nbsp;Apareix en un anime:</ion-label>
+      <p>
+        <ion-icon [name]="checkTrueFalse(postData.animeCheckbox) ? 'close-circle-outline': 'checkmark-circle-outline'"></ion-icon>
+      </p>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="tv-outline"></ion-icon>
+      <ion-label stacked>&nbsp;Apareix en un manga:</ion-label>
+      <p>
+        <ion-icon [name]="checkTrueFalse(postData.mangaCheckbox) ? 'close-circle-outline': 'checkmark-circle-outline'"></ion-icon>
+      </p>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="tv-outline"></ion-icon>
+      <ion-label stacked>&nbsp;Apareix en una pel·lícula:</ion-label>
+      <p>
+        <ion-icon [name]="checkTrueFalse(postData.movieCheckbox) ? 'close-circle-outline': 'checkmark-circle-outline'"></ion-icon>
+      </p>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="person-outline"></ion-icon>
+      <ion-label stacked>&nbsp;Cabells:</ion-label>
+      <p>{{ postData.characterHair }}, {{ postData.characterHairColor }}</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="eye-outline"></ion-icon>
+      <ion-label stacked>&nbsp;Ulls:</ion-label>
+      <p>{{ postData.characterEyes }}, {{ postData.characterEyesColor }}</p>
+    </ion-item>
+    
+    <ion-item>
+      <ion-icon name="document-text-outline"></ion-icon>
+      <ion-label stacked>&nbsp;Autor:</ion-label>
+      <p>{{ postData.author }}</p>
+    </ion-item>
+      
     <ion-item (click)="toggleHeart()">
       <ion-icon [name]="heartType"></ion-icon>
+      <ion-label stacked>&nbsp;Donar Like!</ion-label>
+      <p>Admiradors: {{ postData.likes.length }}</p>
     </ion-item>
-  </ion-card>
+  </div>
 </ion-content>
