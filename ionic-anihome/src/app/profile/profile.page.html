@@ -6,20 +6,20 @@
 
 <ion-content padding>
 
-  <app-loading *ngIf="!posts"></app-loading>
+  <app-loading *ngIf="!posts && postCount != '0'"></app-loading>
 
   <div padding class="ion-text-center imatgeperfil">
 
     <ion-grid class="white-text">
       <img width="30%" style="border-radius: 50%;"
-        src="https://ucarecdn.com/{{ profilePic }}/-/scale_crop/200x200/center">
-      <h3>{{ username }}</h3>
+        src="https://ucarecdn.com/{{ profilePic }}/">
+      <h3>{{ fullname }}</h3>
       <ion-row>
         <ion-col>
-          <p>Posts: <a class="orange-text">1239</a></p>
+          <p>Posts: <a class="orange-text">{{ postCount }}</a></p>
         </ion-col>
         <ion-col>
-          <p>Likes: <a class="orange-text">1239</a></p>
+          <p>Likes: <a class="orange-text">{{ totalLikes }}</a></p>
         </ion-col>
         <ion-col>
           <ion-button shape="round" color="light" routerLink="/tabs/edit-profile"><ion-icon name="settings-outline"></ion-icon>&nbsp;Editar</ion-button>
@@ -29,30 +29,15 @@
     </ion-grid>
   </div>
 
-
-  <!-- <div id="profile-info" *ngIf="username">
-    <ion-grid>
-      <ion-row>
-        <ion-col size="4" class="user-image">
-          <img style="border-radius: 50%;" src="https://ucarecdn.com/{{ profilePic }}/-/scale_crop/200x200/center">
-        </ion-col>
-        <ion-col size="8">
-          <p>Posts: 24</p>
-          <p>Likes: 198</p>
-          <p>{{ username }}</p>
-          <ion-button shape="round" color="primary" routerLink="/tabs/edit-profile">Editar perfil</ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div> -->
+  <div class="noPosts" *ngIf="postCount == '0'">
+    <h4>Encara no tens posts?</h4>
+  </div>
 
   <div id="images" *ngIf="posts">
     <div class="image" *ngFor="let post of posts">
       <ion-card (click)="goTo(post.image)">
         <img src="https://ucarecdn.com/{{ post.image }}/">
-        <ion-card-header>
-          <ion-card-subtitle>{{ post.characterName }}</ion-card-subtitle>
-        </ion-card-header>
+        <p>&nbsp;{{ post.characterName }}</p>
       </ion-card>
     </div>
   </div>

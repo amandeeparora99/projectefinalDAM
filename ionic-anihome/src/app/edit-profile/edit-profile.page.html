@@ -11,30 +11,41 @@
   <div *ngIf="!busy">
 
   <!-- Aquest input és el que amaguem perque al clicar la imatge es pugui executar la tria d'arxius -->
-  <input type="file" #fileBtn class="fileBtn" (change)="uploadPic($event)" />
+  <input type="file" #fileBtn class="filebtn" (change)="uploadPic($event)" />
 
   <div>
-    <ion-img class="profile-pic" (click)="updateProfilePic()" src="https://ucarecdn.com/{{ profilePic }}/-/scale_crop/150x150/center/"></ion-img>
+    <ion-img class="profile-pic" (click)="updateProfilePic()" src="https://ucarecdn.com/{{ profilePic }}/"></ion-img>
   </div>
 
-  <div class="profile-info">
+  <div>
     <ion-item>
-      <ion-label position="floating">Mail</ion-label>
-      <ion-input [(ngModel)]="username"></ion-input>
+      <h2>Dades <a style="color: darkorange;" *ngIf="isAdmin == 'true'">Admin</a></h2>
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Nova Contrassenya</ion-label>
-      <ion-input [(ngModel)]="newpassword"></ion-input>
+      <ion-icon name="document-text-outline"></ion-icon>
+      <ion-label stacked>&nbsp;Mail:</ion-label>
+      <p>{{ username }}</p>
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Repeteix la contrassenya actual</ion-label>
-      <ion-input [(ngModel)]="password"></ion-input>
+      <ion-icon name="person-outline"></ion-icon>&nbsp;
+      <ion-input value="{{ fullname }}" [(ngModel)]="fullname"></ion-input>
     </ion-item>
+
+    <ion-item>
+      <ion-icon name="lock-closed-outline"></ion-icon>&nbsp;
+      <ion-input placeholder="Nova contrasenya" [(ngModel)]="newpassword"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="lock-open-outline"></ion-icon>&nbsp;
+      <ion-input placeholder="Contrasenya actual" [(ngModel)]="password"></ion-input>
+    </ion-item>
+
   </div>
 
-  <ion-button fill="solid" expand="block" color="dark" (click)="updateDetails()">Confirmar canvis</ion-button>
+  <ion-button fill="solid" expand="block" color="tertiary" (click)="updateDetails()">Confirmar canvis</ion-button>
 
 
 </div>

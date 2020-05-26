@@ -17,6 +17,7 @@ export class RegisterPage implements OnInit {
   username: string = ""
   password: string = ""
   cpassword: string = ""
+  fullname: string
 
   constructor(
     public afAuth: AngularFireAuth,
@@ -31,10 +32,14 @@ export class RegisterPage implements OnInit {
   }
 
   async register() {
-    const { username, password, cpassword } = this
+    const { username, password, cpassword, fullname } = this
     if(password !== cpassword){
       this.showAlert("Error!", "Les contrasenyes no coincideixen")
       return console.error("Passwords don't match!")
+    }
+    else if(fullname == ''){
+      this.showAlert("Error!", "Emplena tots els camps!")
+      return console.error("Invalid username!")
     }
 
     try {
@@ -45,7 +50,8 @@ export class RegisterPage implements OnInit {
       this.afstore.doc(`users/${res.user.uid}`).set({
         username,
         isAdmin: '',
-        profilePic: '0abaadc4-f346-4c29-841b-f5de4493f35c'
+        profilePic: '0abaadc4-f346-4c29-841b-f5de4493f35c',
+        fullname
       })
 
       this.user.setUser({

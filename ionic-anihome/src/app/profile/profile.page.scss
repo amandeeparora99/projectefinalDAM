@@ -29,3 +29,18 @@
 .orange-text {
     color: darkorange;
 }
+
+.noPosts{
+    height: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.centercontent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}

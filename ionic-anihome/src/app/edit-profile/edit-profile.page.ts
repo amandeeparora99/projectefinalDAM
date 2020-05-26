@@ -16,6 +16,8 @@ export class EditProfilePage implements OnInit {
   sub
   username: string
   profilePic: string
+  fullname: string
+  isAdmin: string
 
   busy: boolean = false
   password: string
@@ -30,11 +32,12 @@ export class EditProfilePage implements OnInit {
     private user: UserService,
     private router: Router,
     private alertController: AlertController) { 
-
     this.mainuser = afs.doc(`users/${user.getUID()}`)
     this.sub = this.mainuser.valueChanges().subscribe(event => {
       this.username = event.username
       this.profilePic = event.profilePic
+      this.fullname = event.fullname
+      this.isAdmin = event.isAdmin
     })
   }
 
@@ -91,6 +94,12 @@ export class EditProfilePage implements OnInit {
 
     if(this.newpassword) {
       await this.user.updatePassword(this.newpassword)
+    }
+
+    if(this.fullname) {
+      await this.mainuser.update({
+        fullname: this.fullname
+      })
     }
 
     this.password = ""
