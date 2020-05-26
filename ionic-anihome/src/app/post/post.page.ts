@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { UserService } from '../user.service';
 import { firestore } from "firebase/app";
@@ -44,7 +44,8 @@ export class PostPage implements OnInit {
     private route: ActivatedRoute, 
     private afs: AngularFirestore,
     private user: UserService,
-    private alertController: AlertController) { 
+    private alertController: AlertController,
+    private router: Router) { 
       this.mainuser = afs.doc(`users/${this.user.getUID()}`)
       console.log("HA ENTRAT A POST EL USER: "+this.mainuser)
       this.sub2 = this.mainuser.valueChanges().subscribe(event => {
@@ -117,6 +118,7 @@ export class PostPage implements OnInit {
     this.afs.doc(`posts/${this.postID}`).update({
       status: this.status
     })
+  
     this.presentAlert("Has canviat l'status del post")
   }
 
@@ -178,5 +180,14 @@ export class PostPage implements OnInit {
       this.presentAlert("Els canvis s'han efectuat correctament")
     }
   }
+
+  // searchAnimeChars(animeName){
+  //   let navigationExtras: NavigationExtras = {
+  //    queryParams:{
+  //      special: animeName
+  //    } 
+  //   }
+  //   this.router.navigate(['/tabs/feed'], navigationExtras)
+  // }
 
 }

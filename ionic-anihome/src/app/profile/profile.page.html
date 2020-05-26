@@ -19,7 +19,7 @@
           <p>Posts: <a class="orange-text">{{ postCount }}</a></p>
         </ion-col>
         <ion-col>
-          <p>Likes: <a class="orange-text">{{ totalLikes }}</a></p>
+          <p>Likes: <a class="orange-text">{{ likeCounter }}</a></p>
         </ion-col>
         <ion-col>
           <ion-button shape="round" color="light" routerLink="/tabs/edit-profile"><ion-icon name="settings-outline"></ion-icon>&nbsp;Editar</ion-button>
@@ -29,18 +29,76 @@
     </ion-grid>
   </div>
 
-  <div class="noPosts" *ngIf="postCount == '0'">
-    <h4>Encara no tens posts?</h4>
+  <ion-segment color="primary" [(ngModel)]="segmentValue">
+    <ion-segment-button value="accepted">
+      Acceptats
+    </ion-segment-button>
+    <ion-segment-button value="pending">
+      Pendents
+    </ion-segment-button>
+    <ion-segment-button value="denied">
+      Denegats
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="segmentValue">
+    <ion-list *ngSwitchCase="'accepted'">
+      
+      <div class="noPosts" *ngIf="postCount == '0'">
+        <h4>Encara no tens posts?</h4>
+      </div>
+    
+      <div id="images" *ngIf="posts">
+        <div class="image" *ngFor="let post of acceptedPosts">
+          <ion-card (click)="goTo(post.Id)">
+            <img src="https://ucarecdn.com/{{ post.Id }}/">
+            <div class="centercontent">
+              <p>{{ post.Data.characterName }}</p>
+            </div>
+          </ion-card>
+        </div>
+      </div>
+
+    </ion-list>
+    <ion-list *ngSwitchCase="'pending'">
+      
+      <div class="noPosts" *ngIf="postCount == '0'">
+        <h4>Encara no tens posts?</h4>
+      </div>
+    
+      <div id="images" *ngIf="posts">
+        <div class="image" *ngFor="let post of pendingPosts">
+          <ion-card (click)="goTo(post.Id)">
+            <img src="https://ucarecdn.com/{{ post.Id }}/">
+            <div class="centercontent">
+              <p>{{ post.Data.characterName }}</p>
+            </div>
+          </ion-card>
+        </div>
+      </div>
+
+    </ion-list>
+    <ion-list *ngSwitchCase="'denied'">
+      
+      <div class="noPosts" *ngIf="postCount == '0'">
+        <h4>Encara no tens posts?</h4>
+      </div>
+    
+      <div id="images" *ngIf="posts">
+        <div class="image" *ngFor="let post of deniedPosts">
+          <ion-card (click)="goTo(post.Id)">
+            <img src="https://ucarecdn.com/{{ post.Id }}/">
+            <div class="centercontent">
+              <p>{{ post.Data.characterName }}</p>
+            </div>
+          </ion-card>
+        </div>
+      </div>
+
+    </ion-list>
   </div>
 
-  <div id="images" *ngIf="posts">
-    <div class="image" *ngFor="let post of posts">
-      <ion-card (click)="goTo(post.image)">
-        <img src="https://ucarecdn.com/{{ post.image }}/">
-        <p>&nbsp;{{ post.characterName }}</p>
-      </ion-card>
-    </div>
-  </div>
+  
 
 
 </ion-content>

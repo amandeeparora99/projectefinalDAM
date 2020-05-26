@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
 
 @Component({
@@ -14,20 +14,33 @@ export class FeedPage implements OnInit {
   noPostsFound: boolean = false
   mainuser
   sub
+  sub2
   isAdmin: string
 
+  // animeName: string = ""
 
-  constructor(private afs: AngularFirestore, private user: UserService, private router: Router) {
+
+  constructor(private afs: AngularFirestore, private user: UserService, private router: Router, private route: ActivatedRoute) {
     this.mainuser = afs.doc(`users/${this.user.getUID()}`)
     console.log("HA ENTRAT A FEED EL USER: "+this.mainuser)
     this.sub = this.mainuser.valueChanges().subscribe(event => {
       this.isAdmin = event.isAdmin
     })
+    this.getAllPosts()
+    // this.route.queryParams.subscribe(params => {
+    //   if (params && params.special != '') {
+    //     this.animeName = params.special
+    //     this.getAllPostsByAnimeName(params.special)
+    //     this.animeName = ''
+    //     params.special = ''
+    //   }
+    //   else {
+    //     this.getAllPosts()
+    //   }
+    // })
    }
 
   ngOnInit() {
-
-    this.getAllPosts()
 
   }
 
@@ -44,7 +57,7 @@ export class FeedPage implements OnInit {
       this.posts = []
       this.afs.collection('posts').get().toPromise().then((snapshot) => {
         snapshot.docs.forEach(doc => {
-          if (doc.data().characterName.toUpperCase().includes(caps)) {
+          if (doc.data().characterName.toUpperCase().includes(caps) || doc.data().animeName.toUpperCase().includes(caps)) {
             this.posts.push({
               'Data': doc.data(),
               'Id': doc.id
@@ -60,6 +73,28 @@ export class FeedPage implements OnInit {
       })
     }
   }
+
+  // getAllPostsByAnimeName(aniname) {
+  //   let caps = aniname.toUpperCase();
+
+  //   this.posts = []
+  //   this.afs.collection('posts').get().toPromise().then((snapshot) => {
+  //     snapshot.docs.forEach(doc => {
+  //       if (doc.data().animeName.toUpperCase().includes(caps)) {
+  //         this.posts.push({
+  //           'Data': doc.data(),
+  //           'Id': doc.id
+  //         })
+  //       }
+  //     });
+  //     if(this.posts.length == 0){
+  //       this.noPostsFound = true
+  //     }
+  //     else {
+  //       this.noPostsFound = false
+  //     }
+  //   })
+  // }
 
   getAllPosts() {
     this.afs.collection('posts').get().toPromise().then((snapshot) => {

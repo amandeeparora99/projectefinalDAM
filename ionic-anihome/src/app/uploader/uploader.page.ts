@@ -105,7 +105,8 @@ export class UploaderPage implements OnInit {
           characterHair,
           characterHairColor,
           characterEyes,
-          characterEyesColor
+          characterEyesColor,
+          status
         })
       })
       .then(() => {
@@ -129,7 +130,8 @@ export class UploaderPage implements OnInit {
               characterHair,
               characterHairColor,
               characterEyes,
-              characterEyesColor
+              characterEyesColor,
+              status
             })
           });
       });
