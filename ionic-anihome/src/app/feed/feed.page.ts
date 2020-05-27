@@ -44,16 +44,17 @@ export class FeedPage implements OnInit {
     console.log("HA ENTRAT A FEED EL USER: "+this.mainuser)
     this.sub = this.mainuser.valueChanges().subscribe(event => {
       this.isAdmin = event.isAdmin
+      this.posts = []
+      if(event.isAdmin == ''){
+        console.log("Mostrant posts accepted perque no es admin")
+        this.getAllPostsNotAdmin()
+      }
+      else{
+        console.log("Mostrant all posts accepted perque ES admin")
+        this.getAllPosts()
+      }
     })
-    this.posts = []
-    if(this.isAdmin == ''){
-      console.log("Mostrant posts accepted perque no es admin")
-      this.getAllPostsNotAdmin()
-    }
-    else{
-      console.log("Mostrant all posts accepted perque ES admin")
-      this.getAllPosts()
-    }
+    
   }
 
   onSearchChange(event) {
