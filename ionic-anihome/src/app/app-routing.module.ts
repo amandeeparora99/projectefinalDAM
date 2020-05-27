@@ -5,7 +5,7 @@ import { AuthService } from "./auth.service";
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'register',
+    redirectTo: 'tabs',
     pathMatch: 'full'
   },
   {

@@ -24,7 +24,7 @@ import { UserService } from './user.service';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
 import { ShareModule } from './share.module';
-
+import { FilterServiceService } from './filter-service.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -53,7 +53,8 @@ import { ShareModule } from './share.module';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AngularFireAuth,
     UserService,
-    AuthService
+    AuthService,
+    FilterServiceService
   ],
   bootstrap: [AppComponent]
 })
