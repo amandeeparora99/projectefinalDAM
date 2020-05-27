@@ -46,6 +46,10 @@ export class ProfilePage implements OnInit {
   }
 
   ngOnInit() {
+    console.log("Profile page started")
+  }
+
+  startFunction(){
     this.mainuser = this.afs.doc(`users/${this.user.getUID()}`)
     console.log("HA ENTRAT A PROFILE EL USER: " + this.mainuser)
     this.sub = this.mainuser.valueChanges().subscribe(event => {
@@ -60,6 +64,7 @@ export class ProfilePage implements OnInit {
           this.acceptedPosts = []
           this.pendingPosts = []
           this.deniedPosts = []
+          this.likeCounter = 0
           this.checkTotalLikes(post.image)
           this.assignPostStatus(post.image)
         });
@@ -73,7 +78,7 @@ export class ProfilePage implements OnInit {
   }
 
   ionViewWillEnter() {
-    console.log("========= ALMOST THERE ============")
+    this.startFunction()
     }
 
   // getPostStatus(GivenPostId: string){

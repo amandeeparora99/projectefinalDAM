@@ -21,12 +21,7 @@ export class FeedPage implements OnInit {
 
 
   constructor(private afs: AngularFirestore, private user: UserService, private router: Router, private route: ActivatedRoute) {
-    this.mainuser = afs.doc(`users/${this.user.getUID()}`)
-    console.log("HA ENTRAT A FEED EL USER: "+this.mainuser)
-    this.sub = this.mainuser.valueChanges().subscribe(event => {
-      this.isAdmin = event.isAdmin
-    })
-    this.getAllPosts()
+    
     // this.route.queryParams.subscribe(params => {
     //   if (params && params.special != '') {
     //     this.animeName = params.special
@@ -41,7 +36,17 @@ export class FeedPage implements OnInit {
    }
 
   ngOnInit() {
+    console.log("Feed page entered")
+  }
 
+  ionViewWillEnter() {
+    this.mainuser = this.afs.doc(`users/${this.user.getUID()}`)
+    console.log("HA ENTRAT A FEED EL USER: "+this.mainuser)
+    this.sub = this.mainuser.valueChanges().subscribe(event => {
+      this.isAdmin = event.isAdmin
+    })
+    this.posts = []
+    this.getAllPosts()
   }
 
   onSearchChange(event) {
