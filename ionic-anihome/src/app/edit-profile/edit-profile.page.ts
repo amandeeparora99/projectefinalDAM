@@ -75,6 +75,8 @@ export class EditProfilePage implements OnInit {
       message: content,
       buttons: ['OK']
     })
+
+    await alert.present();
   }
 
   async updateDetails() {
@@ -89,7 +91,6 @@ export class EditProfilePage implements OnInit {
     try {
       await this.user.reAuth(this.user.getUsername(), this.password)
     } catch (error) {
-      this.presentAlert("Error", "Contrasenya incorrecta")
       this.busy = false
       console.log("Contrasenya incorrecta")
       return this.presentAlert("Error", "Contrasenya incorrecta")
