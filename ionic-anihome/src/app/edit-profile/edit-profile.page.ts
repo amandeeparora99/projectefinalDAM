@@ -80,8 +80,9 @@ export class EditProfilePage implements OnInit {
   async updateDetails() {
     this.busy = true
 
-    if(!this.password) {
+    if(this.password == '') {
       this.busy = false
+      console.log("Has d'introduir la contrasenya actual per fer canvis!")
       return this.presentAlert("Error", "Has d'introduir la contrasenya actual per fer canvis!")
     }
 
@@ -89,6 +90,7 @@ export class EditProfilePage implements OnInit {
       await this.user.reAuth(this.user.getUsername(), this.password)
     } catch (error) {
       this.busy = false
+      console.log("Contrasenya incorrecta")
       return this.presentAlert("Error", "Contrasenya incorrecta")
     }
 
@@ -96,16 +98,21 @@ export class EditProfilePage implements OnInit {
       await this.user.updatePassword(this.newpassword)
     }
 
-    if(this.fullname) {
+    if(this.fullname != '') {
       await this.mainuser.update({
         fullname: this.fullname
       })
+    }
+    else{
+      console.log("El username no pot estar buit")
+      return this.presentAlert("Error", "El nom d'usuari no pot estar buit!")
     }
 
     this.password = ""
     this.newpassword = ""
     this.busy = false
 
+    console.log("Perfil editat correctament")
     await this.presentAlert("Fet!", "Perfil editat correctament")
 
     this.router.navigate(['/tabs/profile'])

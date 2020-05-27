@@ -15,7 +15,7 @@ export class FeedPage implements OnInit {
   mainuser
   sub
   sub2
-  isAdmin: string
+  isAdmin: string = ''
 
   // animeName: string = ""
 
@@ -46,7 +46,14 @@ export class FeedPage implements OnInit {
       this.isAdmin = event.isAdmin
     })
     this.posts = []
-    this.getAllPosts()
+    if(this.isAdmin == ''){
+      console.log("Mostrant posts accepted perque no es admin")
+      this.getAllPostsNotAdmin()
+    }
+    else{
+      console.log("Mostrant all posts accepted perque ES admin")
+      this.getAllPosts()
+    }
   }
 
   onSearchChange(event) {
@@ -102,12 +109,29 @@ export class FeedPage implements OnInit {
   // }
 
   getAllPosts() {
+    //AQUI CARREGAR NOMES ELS ACCEPTED
     this.afs.collection('posts').get().toPromise().then((snapshot) => {
       snapshot.docs.forEach(doc => {
         this.posts.push({
           'Data': doc.data(),
           'Id': doc.id
         })
+      });
+      console.log("AQUI TENIM L'ARRAY DE POSTS:")
+      console.log(this.posts)
+    })
+  }
+
+  getAllPostsNotAdmin() {
+    //AQUI CARREGAR NOMES ELS ACCEPTED
+    this.afs.collection('posts').get().toPromise().then((snapshot) => {
+      snapshot.docs.forEach(doc => {
+        if(doc.data().status == 'accepted'){
+          this.posts.push({
+            'Data': doc.data(),
+            'Id': doc.id
+          })
+        }
       });
       console.log("AQUI TENIM L'ARRAY DE POSTS:")
       console.log(this.posts)
