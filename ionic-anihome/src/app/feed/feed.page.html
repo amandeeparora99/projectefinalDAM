@@ -1,14 +1,17 @@
 <ion-header>
 
   <ion-toolbar color="tertiary">
-    <button ion-button menuToggle="main-content">
-      <ion-icon name="menu"></ion-icon>
-    </button>
+
+    <ion-buttons slot="start">
+      <ion-menu-button (click)="obrirMenu()">
+      </ion-menu-button>
+    </ion-buttons>
     <ion-title>Llista de Personatges</ion-title>
   </ion-toolbar>
 
   <ion-toolbar color="tertiary">
-    <ion-searchbar class="roundedSearchbar" placeholder="Cercar personatge..." animated (ionChange)="onSearchChange($event)"></ion-searchbar>
+    <ion-searchbar class="roundedSearchbar" placeholder="Cercar personatge..." animated
+      (ionChange)="onSearchChange($event)"></ion-searchbar>
   </ion-toolbar>
 
 </ion-header>

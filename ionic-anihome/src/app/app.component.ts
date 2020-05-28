@@ -159,6 +159,9 @@ export class AppComponent implements OnInit {
   }
 
   filtrarArray() {
+
+    
+
     var context = this
     this.filtres = []
 

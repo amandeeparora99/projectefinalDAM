@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
 import { FilterServiceService } from '../filter-service.service';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-feed',
@@ -23,7 +24,14 @@ export class FeedPage implements OnInit {
   // animeName: string = ""
 
 
-  constructor(private afs: AngularFirestore, private user: UserService, private router: Router, private route: ActivatedRoute, private filterService: FilterServiceService) {
+  constructor(
+    private afs: AngularFirestore,
+    private user: UserService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private filterService: FilterServiceService,
+    private menu: MenuController
+    ) {
 
     // this.route.queryParams.subscribe(params => {
     //   if (params && params.special != '') {
@@ -110,7 +118,7 @@ export class FeedPage implements OnInit {
                       'Data': doc.data(),
                       'Id': doc.id
                     })
-                    
+
                     console.log("el post " + doc.data().characterName + " te el filtre " + filter.val + " i s'ha posat en el array de posts")
                   }
                 }
@@ -125,7 +133,7 @@ export class FeedPage implements OnInit {
         }
       })
 
-//FALTA FER QUE SI NO TROBA POSTS AMB AQUWTS FILTRES QUE ESNENYI QUE NO SHA TROBAT CAP POST
+    //FALTA FER QUE SI NO TROBA POSTS AMB AQUWTS FILTRES QUE ESNENYI QUE NO SHA TROBAT CAP POST
 
 
   }
@@ -175,6 +183,14 @@ export class FeedPage implements OnInit {
   //     }
   //   })
   // }
+
+  obrirMenu() {
+
+    this.menu.enable(true, 'sidebar');
+    this.menu.open('sidebar');
+    console.log("clicat el obrir menu")
+
+  }
 
   getAllPosts() {
     //AQUI CARREGAR NOMES ELS ACCEPTED

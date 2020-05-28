@@ -8,7 +8,7 @@
 
             <!-- LLISTA DE CHECK BOX DE SEXE -->
             <ion-item lines="none" detail="false">
-              <ion-icon slot="start"></ion-icon>
+              <ion-icon slot="start" name="male-female-outline"></ion-icon>
               <ion-label>Sexe</ion-label>
             </ion-item>
             <ion-item *ngFor="let entry of characterSexe">
@@ -18,7 +18,7 @@
 
             <!-- LLISTA DE CHECK BOX DE RANG D'EDAT -->
             <ion-item lines="none" detail="false">
-              <ion-icon slot="start"></ion-icon>
+              <ion-icon slot="start" name="calendar-outline"></ion-icon>
               <ion-label>Rang d'edat</ion-label>
             </ion-item>
             <ion-item *ngFor="let entry of characterAge">
@@ -28,7 +28,7 @@
 
             <!-- LLISTA DE CHECK BOX DE TIPUS -->
             <ion-item lines="none" detail="false">
-              <ion-icon slot="start"></ion-icon>
+              <ion-icon slot="start" name="body-outline"></ion-icon>
               <ion-label>Tipus</ion-label>
             </ion-item>
             <ion-item *ngFor="let entry of characterType">
@@ -38,7 +38,7 @@
 
             <!-- LLISTA DE CHECK BOX DE CABELLS -->
             <ion-item lines="none" detail="false">
-              <ion-icon slot="start"></ion-icon>
+              <ion-icon slot="start" name="cut-outline"></ion-icon>
               <ion-label>Cabells</ion-label>
             </ion-item>
             <ion-item *ngFor="let entry of characterHair">
@@ -48,7 +48,7 @@
 
             <!-- LLISTA DE CHECK BOX DE COLOR CABELLS -->
             <ion-item lines="none" detail="false">
-              <ion-icon slot="start"></ion-icon>
+              <ion-icon slot="start" name="color-palette-outline"></ion-icon>
               <ion-label>Color de cabells</ion-label>
             </ion-item>
             <ion-item *ngFor="let entry of characterHairColor">
@@ -58,7 +58,7 @@
 
             <!-- LLISTA DE CHECK BOX DE ULLS -->
             <ion-item lines="none" detail="false">
-              <ion-icon slot="start"></ion-icon>
+              <ion-icon slot="start" name="eye-outline"></ion-icon>
               <ion-label>Ulls</ion-label>
             </ion-item>
             <ion-item *ngFor="let entry of characterEyes">
@@ -68,7 +68,7 @@
 
             <!-- LLISTA DE CHECK BOX DE COLOR ULLS -->
             <ion-item lines="none" detail="false">
-              <ion-icon slot="start"></ion-icon>
+              <ion-icon slot="start" name="color-palette-outline"></ion-icon>
               <ion-label>Color d'ulls</ion-label>
             </ion-item>
             <ion-item *ngFor="let entry of characterEyesColor">
@@ -106,14 +106,11 @@
         </ion-list>
         <ion-button fill="solid" expand="block" color="tertiary" (click)="filtrarArray()">Filtra</ion-button>
 
-        <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
-
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
-          </ion-item>
-        </ion-list>
+        <br>
+        <ion-button fill="solid" expand="full" color="danger">
+          <ion-icon name="power-outline"></ion-icon>
+        </ion-button>
+       
       </ion-content>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
