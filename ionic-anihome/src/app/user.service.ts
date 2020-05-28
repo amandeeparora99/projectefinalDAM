@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { AngularFireAuth } from '@angular/fire/auth';
 import { first } from "rxjs/operators";
 import { auth } from "firebase/app";
+import { Router } from '@angular/router';
 
 interface user {
     username: string,
@@ -12,7 +13,7 @@ interface user {
 export class UserService {
     private user: user
 
-    constructor(private afAuth: AngularFireAuth) {
+    constructor(private afAuth: AngularFireAuth, private router: Router) {
 
     }
 
@@ -51,4 +52,5 @@ export class UserService {
     getUID(): string {
         return this.user.uid;
     }
+
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-profile',
@@ -30,11 +32,16 @@ export class ProfilePage implements OnInit {
   postReference
   likeCounter: number = 0
 
-  constructor(private afs: AngularFirestore, private user: UserService, private router: Router) {
-    
+  constructor(
+    private afs: AngularFirestore,
+    private user: UserService,
+    private router: Router,
+    private menu: MenuController
+  ) {
+
   }
 
-  
+
 
   ngOnDestroy() {
     this.sub.unsubscribe()
@@ -49,7 +56,15 @@ export class ProfilePage implements OnInit {
     console.log("Profile page started")
   }
 
-  startFunction(){
+  obrirMenu() {
+
+    this.menu.enable(true, 'sidebar');
+    this.menu.open('sidebar');
+    console.log("clicat el obrir menu")
+
+  }
+
+  startFunction() {
     this.mainuser = this.afs.doc(`users/${this.user.getUID()}`)
     console.log("HA ENTRAT A PROFILE EL USER: " + this.mainuser)
     this.sub = this.mainuser.valueChanges().subscribe(event => {
@@ -79,7 +94,7 @@ export class ProfilePage implements OnInit {
 
   ionViewWillEnter() {
     this.startFunction()
-    }
+  }
 
   // getPostStatus(GivenPostId: string){
   //   console.log("YES")
@@ -103,22 +118,22 @@ export class ProfilePage implements OnInit {
     })
   }
 
-  assignPostStatus(postid){
+  assignPostStatus(postid) {
     this.postReference = this.afs.doc(`posts/${postid}`)
     this.sub = this.postReference.valueChanges().subscribe(val => {
-      if(val.status == 'accepted'){
+      if (val.status == 'accepted') {
         this.acceptedPosts.push({
           'Data': val,
           'Id': postid
         })
       }
-      else if(val.status == 'pending'){
+      else if (val.status == 'pending') {
         this.pendingPosts.push({
           'Data': val,
           'Id': postid
         })
       }
-      else{
+      else {
         this.deniedPosts.push({
           'Data': val,
           'Id': postid

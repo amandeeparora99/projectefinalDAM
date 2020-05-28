@@ -5,6 +5,11 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { FeedPage } from './feed/feed.page';
 import { FilterServiceService } from './filter-service.service';
+import { MenuController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { UserService } from './user.service';
+
+
 
 @Component({
   selector: 'app-root',
@@ -138,7 +143,10 @@ export class AppComponent implements OnInit {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private filterService: FilterServiceService
+    private filterService: FilterServiceService,
+    private menu: MenuController,
+    private router: Router,
+    private userService: UserService
   ) {
     this.initializeApp();
   }
@@ -158,9 +166,12 @@ export class AppComponent implements OnInit {
     }
   }
 
-  filtrarArray() {
+  logout() {
+    console.log("fer logout my friend")
+  }
 
-    
+  filtrarArray() {
+    this.menu.close('sidebar')
 
     var context = this
     this.filtres = []
@@ -234,7 +245,7 @@ export class AppComponent implements OnInit {
         context.filtres.push(value)
       }
     });
-    
+
     this.filterService.enviarFiltres(this.filtres);
   }
 }

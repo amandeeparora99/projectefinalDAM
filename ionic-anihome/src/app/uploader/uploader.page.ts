@@ -6,7 +6,7 @@ import { pipe } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { UserService } from '../user.service';
 import { firestore } from "firebase/app";
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -45,12 +45,21 @@ export class UploaderPage implements OnInit {
     public afstore: AngularFirestore,
     public user: UserService,
     private alertController: AlertController,
-    private router: Router
+    private router: Router,
+    private menu: MenuController
   ) {
 
   }
 
   ngOnInit() {
+  }
+
+  obrirMenu() {
+
+    this.menu.enable(true, 'sidebar');
+    this.menu.open('sidebar');
+    console.log("clicat el obrir menu")
+
   }
 
   async createPost() {

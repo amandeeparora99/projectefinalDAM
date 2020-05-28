@@ -31,7 +31,7 @@ export class FeedPage implements OnInit {
     private route: ActivatedRoute,
     private filterService: FilterServiceService,
     private menu: MenuController
-    ) {
+  ) {
 
     // this.route.queryParams.subscribe(params => {
     //   if (params && params.special != '') {
@@ -51,6 +51,7 @@ export class FeedPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.noPostsFound = false
     this.filterService
     this.mainuser = this.afs.doc(`users/${this.user.getUID()}`)
     console.log("HA ENTRAT A FEED EL USER: " + this.mainuser)
@@ -69,8 +70,10 @@ export class FeedPage implements OnInit {
 
 
     //SI ES CLICA SOBRE FILTRAR AQUI ES REP EL ARRAY AMB ELS FILTRES
+
     this.filterService.$arrayFiltres
       .subscribe(data => {
+        this.noPostsFound = false
         this.arrayFilters = data
         console.log(this.arrayFilters)
         //Si no hi ha filtres RETORNAR GETALLPOSTS MY FRIEND, si hi ha filtres buidar posts i posar-hi els que 
@@ -82,7 +85,6 @@ export class FeedPage implements OnInit {
           //S'agafen tots els posts de la base de dades
           //Iterar sobre tots els posts
           console.log("AQUI COMENS A ITERAR SOBRE FIREBASE POSTS")
-
           this.afs.collection('posts').get().toPromise().then((snapshot) => {
             snapshot.docs.forEach(doc => {
               console.log("AQUI HA FET LA QUERY A LA BASE DE DADES")
@@ -93,6 +95,7 @@ export class FeedPage implements OnInit {
                 console.log("AQUI ITERA COMPROVANT FILTRS")
 
                 if (doc.data()[filter.camp] == filter.valDatabase) {
+
                   this.postAlreadyInPosts = false
                   console.log("el filtre es igual aixi que s'entra en el array de posts si no hi es repetit")
                   //Recorro el array de posts per veure si el post ja hi és
@@ -111,13 +114,21 @@ export class FeedPage implements OnInit {
                     }
 
                   }
-
                   console.log(this.postAlreadyInPosts)
                   if (this.postAlreadyInPosts == false) {
-                    this.posts.push({
-                      'Data': doc.data(),
-                      'Id': doc.id
-                    })
+                    if (this.isAdmin == '') {
+                      if (doc.data().status == 'accepted') {
+                        this.posts.push({
+                          'Data': doc.data(),
+                          'Id': doc.id
+                        })
+                      }
+                    } else {
+                      this.posts.push({
+                        'Data': doc.data(),
+                        'Id': doc.id
+                      })
+                    }
 
                     console.log("el post " + doc.data().characterName + " te el filtre " + filter.val + " i s'ha posat en el array de posts")
                   }
@@ -125,16 +136,20 @@ export class FeedPage implements OnInit {
               })
             });
             console.log(this.posts)
+            console.log("this.posts.length " + this.posts.length)
+            if (this.posts.length == 0) {
+              this.noPostsFound = true
+            }
           })
+
         } else {
           this.posts = []
           this.getAllPostsNotAdmin()
-
         }
+
+
+
       })
-
-    //FALTA FER QUE SI NO TROBA POSTS AMB AQUWTS FILTRES QUE ESNENYI QUE NO SHA TROBAT CAP POST
-
 
   }
 
@@ -148,7 +163,7 @@ export class FeedPage implements OnInit {
       this.getAllPosts()
     }
     else {
-
+      this.posts = []
       this.afs.collection('posts').get().toPromise().then((snapshot) => {
         snapshot.docs.forEach(doc => {
           if (doc.data().characterName.toUpperCase().includes(caps) || doc.data().animeName.toUpperCase().includes(caps)) {
@@ -158,6 +173,12 @@ export class FeedPage implements OnInit {
             })
           }
         });
+        if (this.posts.length == 0) {
+          this.noPostsFound = true
+        }
+        else {
+          this.noPostsFound = false
+        }
       })
     }
   }
