@@ -73,6 +73,10 @@ export class FeedPage implements OnInit {
 
     this.filterService.$arrayFiltres
       .subscribe(data => {
+        
+        console.log("¨SHA CLICAT EL BOTO DE FILTRE I TINC TOTS ELS CHECKBOXESSSSSSS " + data)
+        
+        /*
         this.noPostsFound = false
         this.arrayFilters = data
         console.log(this.arrayFilters)
@@ -148,7 +152,7 @@ export class FeedPage implements OnInit {
         }
 
 
-
+*/
       })
 
   }

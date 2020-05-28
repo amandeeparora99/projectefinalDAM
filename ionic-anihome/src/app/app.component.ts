@@ -176,8 +176,21 @@ export class AppComponent implements OnInit {
     var context = this
     this.filtres = []
 
+    this.filtres.push(this.characterSexe)
+    this.filtres.push(this.characterAge)
+    this.filtres.push(this.characterEyes)
+    this.filtres.push(this.characterEyesColor)
+    this.filtres.push(this.characterHair)
+    this.filtres.push(this.characterHairColor)
+    this.filtres.push(this.characterType)
+    this.filtres.push(this.animeCheckbox)
+    this.filtres.push(this.mangaCheckbox)
+    this.filtres.push(this.movieCheckbox)
+
+
+
     //Es recorra els checkboxes de sexe en busca de activats
-    this.characterSexe.forEach(function (value) {
+    /*this.characterSexe.forEach(function (value) {
       if (value.isChecked == true) {
         context.filtres.push(value)
       }
@@ -245,6 +258,7 @@ export class AppComponent implements OnInit {
         context.filtres.push(value)
       }
     });
+    */
 
     this.filterService.enviarFiltres(this.filtres);
   }
