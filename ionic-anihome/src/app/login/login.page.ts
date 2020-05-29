@@ -17,6 +17,7 @@ export class LoginPage implements OnInit {
   constructor(public afAuth: AngularFireAuth, public user: UserService, public router: Router) { }
   
   ngOnInit() {
+    //ngOnInit()
   }
 
   async login() {
