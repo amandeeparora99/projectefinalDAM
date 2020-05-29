@@ -53,4 +53,9 @@ export class UserService {
         return this.user.uid;
     }
 
+    logoutUser() {
+        console.log("attempting to logout...")
+        return this.afAuth.signOut();
+    }
+
 }

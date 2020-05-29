@@ -45,6 +45,8 @@ export class LoginPage implements OnInit {
 
   redirectRegister() {
     this.router.navigate(['/register'])
+    console.log("DADES DE LUSUARI")
+    console.log(this.user)
   }
   
 }

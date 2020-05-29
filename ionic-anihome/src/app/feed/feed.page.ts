@@ -65,6 +65,7 @@ export class FeedPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    //Reset perque sino es dupliquen a l'hora de afegir un personatge (tornen aqui)
     this.noPostsFound = false
     this.filterService
     this.mainuser = this.afs.doc(`users/${this.user.getUID()}`)
@@ -168,6 +169,7 @@ export class FeedPage implements OnInit {
 
 
   buscarPerRangEdat(arrayEdats) {
+    this.posts = []
     if (!arrayEdats[0].isChecked && !arrayEdats[1].isChecked && !arrayEdats[2].isChecked && !arrayEdats[3].isChecked && !arrayEdats[4].isChecked && !arrayEdats[5].isChecked && !arrayEdats[5].isChecked) {
       this.segonaFase = this.nousPosts
       console.log("No Age selected")
@@ -390,6 +392,10 @@ export class FeedPage implements OnInit {
     }
   }
 
+  ferLogout(){
+    this.router.navigate(['/login'])
+  }
+
   obrirMenu() {
 
     this.menu.enable(true, 'sidebar');
@@ -411,7 +417,7 @@ export class FeedPage implements OnInit {
   }
 
   getPostsGender(gender) {
-
+    this.posts = []
     this.afs.collection('posts').get().toPromise().then((snapshot) => {
       snapshot.docs.forEach(doc => {
         if (doc.data().characterSexe == gender) {
@@ -469,6 +475,7 @@ export class FeedPage implements OnInit {
   }
 
   getPostsGenderNoAdmin(gender: string) {
+    this.posts = []
     this.afs.collection('posts').get().toPromise().then((snapshot) => {
       snapshot.docs.forEach(doc => {
         if (doc.data().status == 'accepted' && doc.data().characterSexe == gender) {
@@ -478,6 +485,29 @@ export class FeedPage implements OnInit {
           })
         }
       });
+
+      setTimeout(() => {
+        this.buscarPerRangEdat(this.totalData[1])
+        console.log(this.segonaFase)
+        this.buscarPerTipus(this.totalData[6])
+        console.log(this.terceraFase)
+        this.buscarPerCabells(this.totalData[4])
+        console.log(this.quartaFase)
+        this.buscarPerColorCabell(this.totalData[5])
+        console.log(this.cinquenaFase)
+        this.buscarPerUlls(this.totalData[2])
+        console.log(this.sisenaFase)
+        this.buscarPerUllsColor(this.totalData[3])
+        console.log(this.setenaFase)
+        this.pertanyAUnAnime(this.totalData[7])
+        console.log(this.vuitenaFase)
+        this.pertanyAUnManga(this.totalData[8])
+        console.log(this.novenaFase)
+        this.pertanyAUnMovie(this.totalData[9])
+        console.log(this.finalFase)
+        console.log("DONE")
+        this.updatePosts()
+      }, 0);
     })
   }
 
@@ -524,8 +554,10 @@ export class FeedPage implements OnInit {
 
   getAllPostsNotAdmin() {
     //AQUI CARREGAR NOMES ELS ACCEPTED
+    this.posts = []
     this.afs.collection('posts').get().toPromise().then((snapshot) => {
       snapshot.docs.forEach(doc => {
+        console.log(doc.data())
         if (doc.data().status == 'accepted') {
           this.posts.push({
             'Data': doc.data(),

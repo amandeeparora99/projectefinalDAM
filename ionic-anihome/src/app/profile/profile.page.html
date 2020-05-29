@@ -55,7 +55,7 @@
       <div id="images" *ngIf="posts">
         <div class="image" *ngFor="let post of acceptedPosts">
           <ion-card (click)="goTo(post.Id)">
-            <img src="https://ucarecdn.com/{{ post.Id }}/">
+            <img src="https://ucarecdn.com/{{ post.Id }}/-/scale_crop/100x100/">
             <div class="centercontent">
               <p>{{ post.Data.characterName }}</p>
             </div>
@@ -73,7 +73,7 @@
       <div id="images" *ngIf="posts">
         <div class="image" *ngFor="let post of pendingPosts">
           <ion-card (click)="goTo(post.Id)">
-            <img src="https://ucarecdn.com/{{ post.Id }}/">
+            <img src="https://ucarecdn.com/{{ post.Id }}/-/scale_crop/100x100/">
             <div class="centercontent">
               <p>{{ post.Data.characterName }}</p>
             </div>
@@ -91,7 +91,7 @@
       <div id="images" *ngIf="posts">
         <div class="image" *ngFor="let post of deniedPosts">
           <ion-card (click)="goTo(post.Id)">
-            <img src="https://ucarecdn.com/{{ post.Id }}/">
+            <img src="https://ucarecdn.com/{{ post.Id }}/-/scale_crop/100x100/">
             <div class="centercontent">
               <p>{{ post.Data.characterName }}</p>
             </div>

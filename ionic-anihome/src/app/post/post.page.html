@@ -9,7 +9,7 @@
   <app-loading *ngIf="!post"></app-loading>
 
   <div *ngIf="post as postData">
-    <div *ngIf="isAdmin == '' && postData.status == 'accepted'">
+    <div *ngIf="isAdmin == ''">
       <img src="https://ucarecdn.com/{{ postID }}/">
 
       <ion-item>
