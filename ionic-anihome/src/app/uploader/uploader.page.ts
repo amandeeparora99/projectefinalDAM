@@ -8,6 +8,7 @@ import { UserService } from '../user.service';
 import { firestore } from "firebase/app";
 import { AlertController, MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { UncheckCheckboxesService } from '../uncheck-checkboxes.service';
 
 @Component({
   selector: 'app-uploader',
@@ -46,12 +47,14 @@ export class UploaderPage implements OnInit {
     public user: UserService,
     private alertController: AlertController,
     private router: Router,
-    private menu: MenuController
+    private menu: MenuController,
+    private uncheckCheckboxService: UncheckCheckboxesService
   ) {
 
   }
 
   ngOnInit() {
+    this.uncheckCheckboxService.enviarEventUncheck()
   }
 
   obrirMenu() {

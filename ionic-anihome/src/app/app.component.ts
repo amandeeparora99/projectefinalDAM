@@ -8,6 +8,7 @@ import { FilterServiceService } from './filter-service.service';
 import { MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
+import { UncheckCheckboxesService } from './uncheck-checkboxes.service';
 
 
 
@@ -146,7 +147,8 @@ export class AppComponent implements OnInit {
     private filterService: FilterServiceService,
     private menu: MenuController,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private uncheckCheckboxesService: UncheckCheckboxesService
   ) {
     this.initializeApp();
   }
@@ -159,6 +161,13 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.uncheckCheckboxesService.$uncheckEvent
+    .subscribe(data => {
+      this.uncheckCheckboxes()
+    })
+
+
+
     const path = window.location.pathname.split('folder/')[1];
     if (path !== undefined) {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
@@ -170,6 +179,39 @@ export class AppComponent implements OnInit {
     console.log("fer logout my friend")
   }
 
+  uncheckCheckboxes(){
+    this.characterAge.forEach(checkbox =>{
+      checkbox.isChecked = false
+    })
+    this.characterEyesColor.forEach(checkbox =>{
+      checkbox.isChecked = false
+    })
+    this.characterEyes.forEach(checkbox =>{
+      checkbox.isChecked = false
+    })
+    this.characterHairColor.forEach(checkbox =>{
+      checkbox.isChecked = false
+    })
+    this.characterHair.forEach(checkbox =>{
+      checkbox.isChecked = false
+    })
+    this.characterType.forEach(checkbox =>{
+      checkbox.isChecked = false
+    })
+    this.characterSexe.forEach(checkbox =>{
+      checkbox.isChecked = false
+    })
+    this.animeCheckbox.forEach(checkbox =>{
+      checkbox.isChecked = false
+    })
+    this.mangaCheckbox.forEach(checkbox =>{
+      checkbox.isChecked = false
+    })
+    this.movieCheckbox.forEach(checkbox =>{
+      checkbox.isChecked = false
+    })
+  }
+    
   filtrarArray() {
     this.menu.close('sidebar')
 

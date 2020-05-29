@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { UncheckCheckboxesService } from '../uncheck-checkboxes.service';
 
 
 @Component({
@@ -36,7 +37,9 @@ export class ProfilePage implements OnInit {
     private afs: AngularFirestore,
     private user: UserService,
     private router: Router,
-    private menu: MenuController
+    private menu: MenuController,
+    private uncheckCheckboxService: UncheckCheckboxesService
+
   ) {
 
   }
@@ -53,6 +56,7 @@ export class ProfilePage implements OnInit {
   }
 
   ngOnInit() {
+    this.uncheckCheckboxService.enviarEventUncheck()
     console.log("Profile page started")
   }
 
